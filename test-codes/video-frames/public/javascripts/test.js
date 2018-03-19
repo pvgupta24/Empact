@@ -38,6 +38,7 @@ function generateThumbnail() {
   c.height = 90;
   ctx.drawImage(video, 0, 0, 160, 90);
   var can = c;
+  console.log(can);
   var url = can.toDataURL();
 
   console.log("END HERE");

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image capturing from WebCamera</title>
+        <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  </head>
+
+<body onload="init();">
+  <!-- Different functionalities -->
+  <p>
+    <button onclick="startWebcam();">Start WebCam</button>
+    <button onclick="stopWebcam();">Stop WebCam</button> 
+    <button onclick="snapshot();">Take Snapshot</button> 
+  </p>
+
+  <!-- Video element to capture the image at that point, Initially hidden-->
+  <video onclick="snapshot(this);" width=400 height=400 id="video" controls autoplay style="display: none;"></video>
+    
+  <!-- Display the captured image -->
+  <canvas id="myCanvas" width="400" height="350"></canvas>  
+</body>
+
+<script>
+      var video,webcamStream, canvas, ctx;
+
+      // Get the permissions from browser
+      navigator.getUserMedia = ( navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+      // Get the canvas and obtain a context for drawing in it      
+      function init() {
+        canvas = document.getElementById("myCanvas");
+        ctx = canvas.getContext('2d');
+      }
+
+      // function to startWebCam in the Users browser
+      function startWebcam() {
+        if (navigator.getUserMedia) {
+           navigator.getUserMedia ({
+                 video: true,
+                 audio: false
+              },function(localMediaStream) {
+                  video = document.querySelector('video');
+                 video.src = window.URL.createObjectURL(localMediaStream);
+                 webcamStream = localMediaStream;
+              },function(err) {
+                 console.log("The following error occured: " + err);
+              }
+           );
+        } 
+        else {
+           console.log("getUserMedia not supported");
+        }
+      }
+
+      // function to stopWebCam in the users browser
+      function stopWebcam() {
+          var track = webcamStream.getTracks()[0];
+          track.stop();
+      }
+
+      // function to take a snapshot
+      function snapshot() {
+         // Draws current image from the video element into the canvas
+          ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+          
+          // get the canvas element
+          console.log(ctx.canvas);
+          
+          // convert the canvas element to base64 image
+          var base64 = ctx.canvas.toDataURL();
+          console.log(base64);
+          
+          // make a POST request to store image to server
+          $.ajax({
+            type: "POST",
+            url: "/storeWebCamImage",
+            data: {
+              imgBase64: base64
+            }
+          }).done(function(response){
+                console.log(response);
+            });
+      }
+
+  </script>
+</html>
