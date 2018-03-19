@@ -8,17 +8,20 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 
+  <script src="https://meet.jit.si/external_api.js"></script>
 
 	<style type="text/css">
 		#video {width:320px}
-
 	</style>
 </head>
 <body>
 <div id="thumbs">Loading video in background...</div>
-<video preload="auto" autoplay controls>
+<div id="meet"></div>
+<button onclick="getFrame()">getFrame</button>
+<!-- <video preload="auto" autoplay controls>
 	<source src="mov_bbb.mp4" type="video/mp4">
-</video>
+</video> -->
 </body>
+	<script type="text/javascript" src="/javascripts/jitsi.js"></script>
 	<script type="text/javascript" src="/javascripts/test.js"></script>
 </html>
