@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Video Frame</title>
+
+	<script src="https://rawgit.com/allensarkisyan/VideoFrame/master/VideoFrame.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="index.js"></script> -->
+	<script src="javascripts/capture-video-frame.js"></script>
+
+</head>
+<body>
+<div class="frame">  
+  <span id="currentFrame">0</span>
+</div>
+
+<video height="180" width="100%" id="video"> 
+  <source src="http://www.w3schools.com/html/mov_bbb.mp4"></source>
+</video>
+
+<div id="controls">
+  <button id="play-pause">Play</button>
+</div>
+<script>
+$(function(){
+
+	
+var currentFrame = $('#currentFrame');
+var video = VideoFrame({
+    id : 'video',
+    frameRate: 100,
+    callback : function(frame) {
+        currentFrame.html(frame);
+    }
+});
+
+$('#play-pause').click(function(){
+	console.log('Hmm');
+    ChangeButtonText();
+});
+
+function ChangeButtonText(){
+  if(video.video.paused){
+  		console.log('Resuming..');
+        video.video.play();
+        video.listen('frame');
+        $("#play-pause").html('Pause');
+    }else{
+        video.video.pause();
+        video.stopListen();
+        $("#play-pause").html('Play');
+    }
+  }	
+})
+</script>			
+</body>
+</html>
