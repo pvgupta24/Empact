@@ -72,15 +72,45 @@ function getEmotions() {
 
 function allEmotions() {
 
+    var emotionsGot = [];
+    var emotionsJSON = new Array();
+    var time = [];
     $.ajax({
         url:'/emotions',
         type:'GET',
         success: function (res) {
-            console.log(res[0].emotions);
+           // console.log(res);
+            for(var i =0 ;i <res.length;i++)
+            {
 
-            // access any API through res[0].emotions[0].emotion
-        }
+                emotionsGot[i]=res[i].emotions;
+                emotionsGot[i][0].emotion["time"] = i;
+                time[i] = emotionsGot[i][0].time;
+                
+                //console.log(emotionsGot[i][0].emotion["time"]);
+                emotionsJSON.push(emotionsGot[i][0].emotion);
+            }
+            plot(emotionsJSON);
+        },
+        async: false
 
     });
-    //$("#allEmotionsresult").text(JSON.stringify(data));
+    //console.log(emotionsJSON);
+
+    
+};
+
+var plot = function(emotionsJSON){
+    var chart = makeLineChart(emotionsJSON, 'time', {
+        'Anger': {column: 'anger'},
+        'Contempt': {column: 'contempt'},
+        'Disgust': {column: 'disgust'},
+        'Fear': {column: 'fear'},
+        'Happiness': {column: 'happiness'},
+        'Neutral': {column: 'neutral'},
+        'Sadness': {column: 'sadness'},
+        'Surprise': {column: 'surprise'}
+    }, {xAxis: 'Time frame', yAxis: 'Percentage'});
+    chart.bind("#chart-line1");
+    chart.render();
 };

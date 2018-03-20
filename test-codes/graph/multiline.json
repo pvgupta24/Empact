@@ -1,6 +1,6 @@
 [
     {
-    "time":2,
+    
     "anger": 0,
     "contempt": 0,
     "disgust": 0,
@@ -8,10 +8,11 @@
     "happiness": 0,
     "neutral": 0.986,
     "sadness": 0.009,
-    "surprise": 0.005
+    "surprise": 0.005,
+    "time":2
   },
   {
-    "time":4,  
+      
     "anger": 0.45,
     "contempt": 0.001,
     "disgust": 0.075,
@@ -19,10 +20,10 @@
     "happiness": 0.003,
     "neutral": 0.053,
     "sadness": 0.181,
-    "surprise": 0.206
+    "surprise": 0.206,
+    "time":4
   },
-  {
-    "time":6,  
+  {  
     "anger": 0,
     "contempt": 0,
     "disgust": 0,
@@ -30,10 +31,10 @@
     "happiness": 0,
     "neutral": 0.987,
     "sadness": 0.012,
-    "surprise": 0.001
+    "surprise": 0.001,
+    "time":6
   },
-  {
-    "time":8,  
+  {  
     "anger": 0.489,
     "contempt": 0.004,
     "disgust": 0.001,
@@ -41,10 +42,10 @@
     "happiness": 0,
     "neutral": 0.45,
     "sadness": 0.054,
-    "surprise": 0.001
+    "surprise": 0.001,
+    "time":8
   },
-  {
-    "time":10,  
+  {  
     "anger": 0.3,
     "contempt": 0.019,
     "disgust": 0.479,
@@ -52,6 +53,7 @@
     "happiness": 0.01,
     "neutral": 0.187,
     "sadness": 0.001,
-    "surprise": 0.005
+    "surprise": 0.005,
+    "time":10
   }
 ]  
