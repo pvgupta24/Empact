@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="multiline.css">
+    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <!--<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
+</head>
+<body>
+<div class="chart-wrapper" id="chart-line1"></div>
+
+<script type="text/javascript">
+    d3.json('multiline.json', function(error, data) {
+    data.forEach(function (d) {
+        d.time = +d.time;
+        d.anger = +d.anger;
+        d.contempt = +d.contempt;
+        d.disgust = +d.disgust;
+        d.fear = +d.fear;
+        d.happiness = +d.happiness;
+        d.neutral = +d.neutral;
+        d.sadness = +d.sadness;
+        d.surprise = +d.surprise;
+        console.log(d);
+    });
+
+    var chart = makeLineChart(data, 'time', {
+        'Anger': {column: 'anger'},
+        'Contempt': {column: 'contempt'},
+        'Disgust': {column: 'disgust'},
+        'Fear': {column: 'fear'},
+        'Happiness': {column: 'happiness'},
+        'Neutral': {column: 'neutral'},
+        'Sadness': {column: 'sadness'},
+        'Surprise': {column: 'surprise'}
+    }, {xAxis: 'Time frame', yAxis: 'Percentage'});
+    chart.bind("#chart-line1");
+    chart.render();
+
+});
+</script>
+<script src="multiline.js" charset="utf-8"></script>
+</body>
+</html>
