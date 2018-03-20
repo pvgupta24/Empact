@@ -4,4 +4,5 @@ var ctrlEmotion = require('../controllers/emotion');
 
 
 router.post('/',ctrlEmotion.addEmotion);
+router.get('/',ctrlEmotion.getEmotions);
 module.exports = router;

@@ -72,6 +72,15 @@ function getEmotions() {
 
 function allEmotions() {
 
+    $.ajax({
+        url:'/emotions',
+        type:'GET',
+        success: function (res) {
+            console.log(res[0].emotions);
 
+            // access any API through res[0].emotions[0].emotion
+        }
+
+    });
     //$("#allEmotionsresult").text(JSON.stringify(data));
 };

@@ -12,19 +12,34 @@ module.exports.addEmotion = function(req, res) {
     emotion.emotions.push({"time": new Date(),"emotion": req.body.faceAttributes.emotion});
     console.log(emotion);
      //
-
-    emotion.save(function(err,saved) {
+    /*
+    * db.events.update( { "user_id" : "714638ba-2e08-2168-2b99-00002f3d43c0" },
+    { $push : { "events" : { "profile" : 10, "data" : "X"}}}, {"upsert" : true});
+    */
+    /*emotion.save(function(err,saved) {
         if(err)
             console.log("Error..\t"+err);
         else
             console.log("Saved\t"+saved);
         res.status(200);
-    });
+    });*/
+    /*var query = {'username':"mis"};
+    var update={ "push": { "emotions.$": req.body.faceAttributes.emotion } };
+    emotion.findOneAndUpdate(query,){
+
+    };*/
 };
-/*
 
 module.exports.getEmotions = function(req,res){
-    console.log("Searching and sending "+req.params.course);
+    Emotion.find(function (err, emotion) {
+       if(err){
+           res.send(err);
+       }
+       else{
+           res.send(emotion);
+       }
+    });
+   /* console.log("Searching and sending "+req.params.course);
     var _id = (req.params.course);
 
     Course.findById(_id ,function(err,data){
@@ -34,5 +49,5 @@ module.exports.getEmotions = function(req,res){
         }
         console.log(data);
         res.status(200).json(data);
-    });
-};*/
+    });*/
+};
