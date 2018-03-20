@@ -1,3 +1,10 @@
+var callEmotion;
+
+function takeSnap() {
+    callEmotion = setInterval(getEmotions, 3000);
+}
+
+
 Webcam.set({
     width: 320,
     height: 240,
@@ -20,6 +27,10 @@ var params = {
 };
 
 function getEmotions() {
+
+    getLastEmotion();
+
+    //console.log("Emotion called");
     // take snapshot and get image data
     Webcam.snap(function(data_uri) {
         base_image = new Image();
@@ -70,6 +81,7 @@ function getEmotions() {
     };
 }
 
+// function to get all the Last Emotions
 function allEmotions() {
 
     var emotionsGot = [];
@@ -96,8 +108,37 @@ function allEmotions() {
 
     });
     //console.log(emotionsJSON);
+};
 
-    
+// function to get the Last Emotion
+function getLastEmotion() {
+    console.log("Last Emotion");
+
+    var emotionsGot = [];
+    var emotionsJSON = new Array();
+    var time = [];
+    $.ajax({
+        url:'/emotions',
+        type:'GET',
+        success: function (res) {
+           // console.log(res);
+            for(var i=0 ;i<res.length;i++)
+            {
+                console.log("Entered " + i);
+                if(Date.now() - emotionsGot[i][0].time <= 10)
+                {
+                    emotionsGot[i]=res[i].emotions;
+                    emotionsGot[i][0].emotion["time"] = i;
+                    time[i] = emotionsGot[i][0].time;
+                    console.log(emotionsGot[i][0].emotion);
+                    emotionsJSON.push(emotionsGot[i][0].emotion);
+                }
+            }
+        },
+        async: false
+    });
+    console.log("Get Last Emotion, display it")
+    console.log(emotionsJSON);
 };
 
 var plot = function(emotionsJSON){
