@@ -6,12 +6,13 @@ module.exports.addEmotion = function(req, res) {
     //add new if no
     console.log('Received' + JSON.stringify(req.body));
     // else append to user data
-    var emotion = new Emotion();
-    console.log(emotion);
-    emotion.username = "pv";//req.body.user
-    emotion.emotions.push({"time": new Date(),"emotion": req.body.faceAttributes.emotion});
-    console.log(emotion);
-     //
+    //var emotion = new Emotion();
+    //console.log(emotion);
+    var username = "shashank";
+    //emotion.username = "pv";//req.body.user
+    //emotion.emotions.push({"time": new Date(), "emotion": req.body.faceAttributes.emotion});
+    // console.log(emotion);
+    //
     /*
     * db.events.update( { "user_id" : "714638ba-2e08-2168-2b99-00002f3d43c0" },
     { $push : { "events" : { "profile" : 10, "data" : "X"}}}, {"upsert" : true});
@@ -23,11 +24,14 @@ module.exports.addEmotion = function(req, res) {
             console.log("Saved\t"+saved);
         res.status(200);
     });*/
-    /*var query = {'username':"mis"};
-    var update={ "push": { "emotions.$": req.body.faceAttributes.emotion } };
-    emotion.findOneAndUpdate(query,){
-
-    };*/
+    let query = {"username": username};
+    let update = {"$push": {"emotions": {"time": new Date(), "emotion": req.body.faceAttributes.emotion}}};
+    Emotion.findOneAndUpdate(query, update, {upsert: true, new: true}, function (err,doc) {
+        if(err)
+            res.error=err;
+        else
+            return res.status(200).send(doc);
+    });
 };
 
 module.exports.getEmotions = function(req,res){
