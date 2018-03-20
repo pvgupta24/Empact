@@ -55,18 +55,23 @@ function getEmotions() {
         });
         };
     });
-}
-
-var sendEmotions = function(data){
-    // console.log("Sending"+JSON.stringify(data));
-    $.post({
-        url: "/emotions",
-        contentType:"application/json",
-        data:JSON.stringify(data)
-    }).done(function(data) {
+    var sendEmotions = function(data){
+        // console.log("Sending"+JSON.stringify(data));
+        $.post({
+            url: "/emotions",
+            contentType:"application/json",
+            data:JSON.stringify(data)
+        }).done(function(data) {
             //$("#results").text(JSON.stringify(data));
         })
-        .fail(function(err) {
-            // $("#results").text(JSON.stringify(err));
-        });
+            .fail(function(err) {
+                // $("#results").text(JSON.stringify(err));
+            });
+    };
+}
+
+function allEmotions() {
+
+
+    //$("#allEmotionsresult").text(JSON.stringify(data));
 };

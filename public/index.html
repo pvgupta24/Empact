@@ -48,10 +48,12 @@
             <div class="col-4">
                 <form>
                     <input type=button class="btn btn-primary" value="Take Snapshot" onClick="getEmotions()">
+                    <input type=button class="btn btn-primary" value="Get All Emotions" onClick="allEmotions()">
                 </form>
                 <div id="my_camera"></div>
                 <div> Emotions:
                     <pre id="results"></pre>
+                    <pre id = "allEmotionsresult"></pre>
                 </div>
                 <canvas id="viewport" width="320" height="240"></canvas>
             </div>
