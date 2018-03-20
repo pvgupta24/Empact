@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
-var dbURI = 'mongodb://localhost/virtual-classroom';
+var dbURI = 'mongodb://empactcosmosdb:2ELvodEB5uvfhUD0KeTLTWuykADcCMCeR0H2cUjlM6yXsclLjhnalERVremVrFImEdLyRg6TGt196mv8qEJ5LQ==@empactcosmosdb.documents.azure.com:10255/?ssl=true';
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGOLAB_URI;
 }
