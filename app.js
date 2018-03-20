@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -11,6 +12,15 @@ var webCamImage = require('./routes/webCamImage');
 
 
 var app = express();
+
+//cors
+// app.use(cors());
+// app.use(function (req,res,next) {
+//     res.setHeader("Access-Control-Allow-Origin", req.headers.origin || '*');
+//     res.setHeader("Access-Control-Allow-Origin", req.headers.origin || '*');
+//     res.setHeader("Access-Control-Allow-Methods", "");
+//     res.setHeader("Access-Control-Allow-Headers", '*');
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
