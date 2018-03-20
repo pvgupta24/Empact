@@ -40,15 +40,32 @@
 
     <div class="container">
         <h1>Welcome to Empact !!</h1>
-        <!--Container to hold the Meet-->
-        <div id="meet"></div>
+        <div class="row">
+            <div class="col-8">
+                <!--Container to hold the Meet-->
+                <div id="meet"></div>
+            </div>
+            <div class="col-4">
+                <form>
+                    <input type=button class="btn btn-primary" value="Take Snapshot" onClick="getEmotions()">
+                </form>
+                <div id="my_camera"></div>
+                <div> Emotions:
+                    <pre id="results"></pre>
+                </div>
+                <canvas id="viewport" width="320" height="240"></canvas>
+            </div>
+        </div>
+
     </div>
-    <a href="#" onclick="unload()">Unload</a>
+
+    <!--Lib-jitsi-meet-custom-->
+    <!--<a href="#" onclick="unload()">Unload</a>
     <a href="#" onclick="switchVideo()">switchVideo</a>
     <div id="audioOutputSelectWrapper" style="display: none;">
         Change audio output device
         <select id="audioOutputSelect" onchange="changeAudioOutput(this)"></select>
-    </div>
+    </div>-->
     <!-- <video id="localVideo" autoplay="true"></video> -->
     <!--<audio id="localAudio" autoplay="true" muted="true"></audio>-->
 </body>
@@ -74,15 +91,16 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/js/mdb.min.js"></script>
 
 <!--Jitsi Components-->
-<!--<script src="https://meet.jit.si/external_api.js"></script>-->
+<script src="https://meet.jit.si/external_api.js"></script>
+<script src="javascripts/jitsi_empact.js"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/strophe.js/1.2.14/strophe.min.js"></script>
+<!--lib-jitsi-custom Components-->
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/strophe.js/1.2.14/strophe.min.js"></script>-->
+<!--<script src="javascripts/strophe.disco.min.js?v=1"></script>-->
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/strophejs-plugins@0.0.7/caps/strophe.CAPS.js"></script>-->
+<!--<script src="https://meet.jit.si/libs/lib-jitsi-meet.js"></script>-->
+<!--<script src="javascripts/jitsi_custom.js"></script>-->
 
-<script src="javascripts/strophe.disco.min.js?v=1"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/strophejs-plugins@0.0.7/caps/strophe.CAPS.js"></script>
-
-<script src="https://meet.jit.si/libs/lib-jitsi-meet.js"></script>
-<!--<script src="javascripts/jitsi_empact.js"></script>-->
-<script src="javascripts/jitsi_custom.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.24/webcam.min.js"></script>
+<script src="javascripts/emotion_handler.js"></script>
 </html>

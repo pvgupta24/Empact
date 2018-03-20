@@ -1,0 +1,77 @@
+<div id="my_camera"></div>
+<form>
+  <input type=button class="btn btn-primary" value="Take Snapshot" onClick="take_snapshot()">
+</form>
+
+<canvas id="viewport" width="320" height="240"></canvas>
+
+<div>Your results will appear below:
+<pre id="results">
+</pre>
+</div>
+<script>
+Webcam.set({
+  width: 320,
+  height: 240,
+  image_format: 'jpeg',
+  jpeg_quality: 90
+});
+Webcam.attach('#my_camera');
+
+var canvas = document.getElementById('viewport'),
+  context = canvas.getContext('2d');
+var subscriptionKey = "ffe41ed50f3d4d51aeb816350fa190ad";
+
+
+var uriBase = "https://westus.api.cognitive.microsoft.com/face/v1.0/detect";
+        // Request parameters.
+var params = {
+  "returnFaceId": "true",
+  "returnFaceLandmarks": "false",
+  "returnFaceAttributes": "age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise",
+        };
+        
+function take_snapshot() {
+  // take snapshot and get image data
+  Webcam.snap(function(data_uri) {
+    base_image = new Image();
+    base_image.src = data_uri;
+    base_image.onload = function() {
+      context.drawImage(base_image, 0, 0, 320, 240);
+
+      let data = canvas.toDataURL('image/jpeg');
+
+      fetch(data)
+        .then(res => res.blob())
+        .then(blobData => {
+          $.post({
+              url: uriBase+'?'+$.param(params),
+              contentType: "application/octet-stream",
+              headers: {
+                'Ocp-Apim-Subscription-Key': subscriptionKey
+              },
+              processData: false,
+              data: blobData
+            })
+            .done(function(data) {
+              $("#results").text(JSON.stringify(data));
+
+            })
+            .fail(function(err) {
+              $("#results").text(JSON.stringify(err));
+            })
+        });
+    }
+  });
+};
+
+</script>
+
+<style>
+#results {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+  margin: 1em 0;
+}
+</style>

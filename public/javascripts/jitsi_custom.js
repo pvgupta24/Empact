@@ -278,8 +278,7 @@ const initOptions = {
     desktopSharingFirefoxExtensionURL: null
 };
 
-JitsiMeetJS.init(initOptions)
-    .then(() => {
+JitsiMeetJS.init(initOptions).then(() => {
     connection = new JitsiMeetJS.JitsiConnection(null, null, options);
 
 connection.addEventListener(
