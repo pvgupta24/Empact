@@ -1,7 +1,8 @@
 
 var callEmotion;
-
-function takeSnap() {
+var username;
+function takeSnap(user) {
+    username = user;
     callEmotion = setInterval(getEmotions, 3000);
 }
 
@@ -51,12 +52,12 @@ function getEmotions() {
                         data: blobData
                  })
                 .done(function(data) {
+                    if(data != undefined){
                      $("#results").text(JSON.stringify(data[0].faceAttributes));
-                    //Send emotions JSON to server
-
-                     //var received=[{"faceId":"b851c7a8-9adb-4040-8585-03211d55764b","faceRectangle":{"top":124,"left":128,"width":88,"height":88},"faceAttributes":{"smile":1,"gender":"male","age":26.5,"emotion":{"anger":0,"contempt":0,"disgust":0,"fear":0,"happiness":1,"neutral":0,"sadness":0,"surprise":0}}}];
-                     console.log("Sending"+JSON.stringify(data[0].faceAttributes));
                      sendEmotions(data[0]);
+                    }
+                    else
+                        console.log("Could not receive emotions");
                 })
                 .fail(function(err) {
                     $("#results").text(JSON.stringify(err));
@@ -65,11 +66,15 @@ function getEmotions() {
         };
     });
     var sendEmotions = function(data){
-        // console.log("Sending"+JSON.stringify(data));
+        console.log("Sending"+JSON.stringify(data));
+        console.log(username);
         $.post({
             url: "/api/emotion",
             contentType:"application/json",
-            data:JSON.stringify(data)
+            data: JSON.stringify({
+                "username": username,
+                "payload": data
+                })
         }).done(function(data) {
             //$("#results").text(JSON.stringify(data));
             console.log(data);
@@ -88,9 +93,8 @@ function allEmotions() {
     var emotionsGot = [];
     var emotionsJSON = new Array();
     var time = [];
-    $.ajax({
+    $.get({
         url: '/api/emotion',
-        type: 'GET',
         success: function (res) {
            console.log(res);
             for(var i =0 ;i <res.length;i++)
