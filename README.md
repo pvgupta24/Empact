@@ -19,7 +19,7 @@ sudo sysctl -p --system
 - Package Link :
 
 ### Future Work:
-- Private Chat between two users
+- Private Discussion rooms
 - Personalised Intelligent Bot
 - Detailed report on the emotions of each user at the video conference
 
