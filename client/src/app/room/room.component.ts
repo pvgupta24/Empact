@@ -11,6 +11,7 @@ declare function JitsiMeetExternalAPI(a,b): void;
 export class RoomComponent implements OnInit {
 
   room
+  
   constructor(private route: ActivatedRoute) {
     this.route.params.subscribe( params => this.room=params.room );
     console.log("Current room is "+ this.room);
