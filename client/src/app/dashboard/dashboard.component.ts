@@ -43,9 +43,11 @@ export class DashboardComponent {
     JSON.stringify({"user": this.user._id,"room":this.newroom
     }), this.httpOptions)
     .subscribe(res => console.log(res));
-    window.location.reload();
+    // this.router.navigateByUrl('/room/'+this.newroom.code);      
+    // this.refresh();
   }
 
-  
-
+//  refresh(): void{
+//     window.location.reload();
+//   }
 }
