@@ -28,5 +28,8 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "gulp-watch": "^4.3.4"
+  },
+  "engines": {
+    "node": ">7.0.0"
   }
 }
