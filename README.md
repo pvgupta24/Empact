@@ -16,7 +16,6 @@ sudo sysctl -p --system
 ### Demo
 - Video Link : https://www.youtube.com/watch?v=zXlO3CSY_jE
 - Presentation Link : https://1drv.ms/p/s!AlCM_gUyvQVGiAHF2tQoze8F3Z0A
-- Package Link :
 
 ### Future Work:
 - Private Discussion rooms
