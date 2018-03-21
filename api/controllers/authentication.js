@@ -7,11 +7,7 @@ var sendJSONresponse = function(res, status, content) {
   res.json(content);
 };
 
-<<<<<<< HEAD
 // module to register the User
-=======
-
->>>>>>> bfea48e77353b663310ae830d239d343efa5e4d2
 module.exports.register = function(req, res) {
 
   // if(!req.body.name || !req.body.email || !req.body.password) {
