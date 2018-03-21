@@ -47,10 +47,11 @@ export class RoomComponent implements OnInit {
     this.sessionStatus = true;
     this.api = new JitsiMeetExternalAPI(domain, options);
     this.api.executeCommand('displayName', this.user.name);
+      takeSnap(this.user.name);    
    
   }
   sendSnaps(){
-    takeSnap(this.user.name);
+    // takeSnap(this.user.name);
   }
   stopSession(){
     this.api.dispose();

@@ -1,9 +1,12 @@
 
 var callEmotion;
 var username;
+var snap;
+// var getemotions;
 function takeSnap(user) {
     username = user;
     callEmotion = setInterval(getEmotions, 3000);
+    snap = setInterval(allEmotions,3000);
 }
 
 function setWebCam(){

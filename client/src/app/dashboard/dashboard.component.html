@@ -81,30 +81,29 @@
 
             <!--Card group-->
         <div class="card-deck">
-            <div *ngFor = "let room of rooms" class="wow fadeIn">
+            <div *ngFor = "let room of rooms" class="wow fadeIn col-lg-6">
                 <a routerLink="{{'/room/'+room.code}}">
-                <!--Card-->
-                <div class="card mb-4" >                    
+                    <!--Card-->
+                    <div class="card mb-4 col" >                    
+                        
+                        <!--Card content-->
+                        <div class="card-body">
 
-                    <!--Card content-->
-                    <div class="card-body">
+                            <!--Title-->
+                            <h4 class="card-title">{{room.code}} - {{room.name}}</h4>
 
-                        <!--Title-->
-                        <h4 class="card-title">{{room.code}} - {{room.name}}</h4>
+                            <!--Text-->
+                            <p class="card-text">Room Description</p>
 
-                        <!--Text-->
-                        <p class="card-text">Room Description</p>
+                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                            <button type="button" class="btn btn-light-blue btn-md">Enter Room</button>
+                        </div>
+                        <!--Card content-->
 
-                        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                        <button type="button" class="btn btn-light-blue btn-md">Enter Room</button>
                     </div>
-                    <!--Card content-->
-
-                </div>
-                <!--Card-->
+                    <!--Card-->
                 </a>
-            </div>
-            
+            </div>            
 
         </div>
         <!--Card group-->
@@ -115,11 +114,3 @@
 
   </div>
 </div>
-
-
-
-
-
-
-
-
