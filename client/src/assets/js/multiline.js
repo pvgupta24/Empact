@@ -126,7 +126,7 @@ function makeLineChart(dataset, xName, yObjs, axisLables) {
     };
 
 // Render the chart
-    chartObj.render = function () {
+    chartObj.render = function (username) {
         //Create SVG element
         chartObj.svg = chartObj.chartDiv.append("svg").attr("class", "chart-area").attr("width", chartObj.width + (chartObj.margin.left + chartObj.margin.right)).attr("height", chartObj.height + (chartObj.margin.top + chartObj.margin.bottom)).append("g").attr("transform", "translate(" + chartObj.margin.left + "," + chartObj.margin.top + ")");
 
@@ -141,6 +141,14 @@ function makeLineChart(dataset, xName, yObjs, axisLables) {
         
 
         // Draw Axis
+        chartObj.svg.append("text")
+        .attr("x", (chartObj.width / 2))             
+        .attr("y", 0 - (chartObj.margin.top / 10))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+//        .style("text-decoration", "underline")      
+        .text(username);
+
         chartObj.svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + chartObj.height + ")").call(chartObj.xAxis).append("text").attr("class", "label").attr("x", chartObj.width / 2).attr("y", 30).style("text-anchor", "middle").text(chartObj.xAxisLable);
 
         chartObj.svg.append("g").attr("class", "y axis").call(chartObj.yAxis).append("text").attr("class", "label").attr("transform", "rotate(-90)").attr("y", -42).attr("x", -chartObj.height / 2).attr("dy", ".71em").style("text-anchor", "middle").text(chartObj.yAxisLable);
