@@ -2,14 +2,17 @@ var mongoose = require('mongoose');
 var Emotion = mongoose.model("Emotion", "emotions");
 
 module.exports.addEmotion = function(req, res) {
-    console.log('Received emotion : ' + JSON.stringify(req.body));
-    var username = "shashank";
-    
+    //console.log('Received emotion : ' + JSON.stringify(req.body));
+    let username = req.body.username;
+    let emotion = req.body.payload.faceAttributes.emotion;
+    console.log(emotion);    
     let query = {"username": username};
-    let update = {"$push": {"emotions": {"time": new Date(), "emotion": req.body.faceAttributes.emotion}}};
+    let update = {"$push": {"emotions": {"time": new Date(), "emotion": emotion}}};
     Emotion.findOneAndUpdate(query, update, {upsert: true, new: true}, function (err,doc) {
         if(err)
-            res.error=err;
+            {   console.log(err);
+                res.error=err;
+            }
         else
             return res.status(200).send(doc);
     });

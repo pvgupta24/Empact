@@ -1,6 +1,6 @@
 .chart-wrapper {
-    max-width: 310px;
-    min-width: 304px;
+    max-width: 1000px;
+    min-width: 600px;
     margin: 0 auto;
     background-color: #FAF7F7;
 }
@@ -55,7 +55,7 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    font-size: 12px;
+    font-size: 16px;
     padding: 10px 40px;
 }
 .chart-wrapper .legend > div {

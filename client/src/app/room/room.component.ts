@@ -3,8 +3,10 @@ import {ActivatedRoute} from "@angular/router";
 import { AuthenticationService, UserDetails } from '../authentication.service';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 
+
 declare function JitsiMeetExternalAPI(a,b): void;
 declare function setWebCam(): any;
+declare function takeSnap(a):any;
 
 @Component({
   selector: 'app-room',
@@ -45,7 +47,11 @@ export class RoomComponent implements OnInit {
     this.sessionStatus = true;
     this.api = new JitsiMeetExternalAPI(domain, options);
     this.api.executeCommand('displayName', this.user.name);
-        
+      takeSnap(this.user.name);    
+   
+  }
+  sendSnaps(){
+    // takeSnap(this.user.name);
   }
   stopSession(){
     this.api.dispose();

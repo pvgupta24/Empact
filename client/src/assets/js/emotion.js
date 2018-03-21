@@ -1,8 +1,12 @@
 
 var callEmotion;
-
-function takeSnap() {
+var username;
+var snap;
+// var getemotions;
+function takeSnap(user) {
+    username = user;
     callEmotion = setInterval(getEmotions, 3000);
+    snap = setInterval(allEmotions,3000);
 }
 
 function setWebCam(){
@@ -51,12 +55,12 @@ function getEmotions() {
                         data: blobData
                  })
                 .done(function(data) {
+                    if(data != undefined){
                      $("#results").text(JSON.stringify(data[0].faceAttributes));
-                    //Send emotions JSON to server
-
-                     //var received=[{"faceId":"b851c7a8-9adb-4040-8585-03211d55764b","faceRectangle":{"top":124,"left":128,"width":88,"height":88},"faceAttributes":{"smile":1,"gender":"male","age":26.5,"emotion":{"anger":0,"contempt":0,"disgust":0,"fear":0,"happiness":1,"neutral":0,"sadness":0,"surprise":0}}}];
-                     console.log("Sending"+JSON.stringify(data[0].faceAttributes));
                      sendEmotions(data[0]);
+                    }
+                    else
+                        console.log("Could not receive emotions");
                 })
                 .fail(function(err) {
                     $("#results").text(JSON.stringify(err));
@@ -65,11 +69,15 @@ function getEmotions() {
         };
     });
     var sendEmotions = function(data){
-        // console.log("Sending"+JSON.stringify(data));
+        console.log("Sending"+JSON.stringify(data));
+        console.log(username);
         $.post({
             url: "/api/emotion",
             contentType:"application/json",
-            data:JSON.stringify(data)
+            data: JSON.stringify({
+                "username": username,
+                "payload": data
+                })
         }).done(function(data) {
             //$("#results").text(JSON.stringify(data));
             console.log(data);
@@ -85,24 +93,27 @@ function getEmotions() {
 // function to get all the Last Emotions
 function allEmotions() {
 
-    var emotionsGot = [];
-    var emotionsJSON = new Array();
-    var time = [];
-    $.ajax({
+    $.get({
         url: '/api/emotion',
-        type: 'GET',
         success: function (res) {
            console.log(res);
             for(var i =0 ;i <res.length;i++)
             {
-
-                emotionsGot[i]=res[i].emotions;
-                emotionsGot[i][0].emotion["time"] = i;
-                time[i] = emotionsGot[i][0].time;                
-                console.log(emotionsGot[i][0].emotion["time"]);
-                emotionsJSON.push(emotionsGot[i][0].emotion);
+                var emotionsGot = [];
+                var emotionsJSON = new Array();
+                var time = [];
+                var username;
+                //console.log(res[i].emotions);
+                for(var j=0;j<res[i].emotions.length;j++)
+                {
+                    username = res[i].username;
+                    emotionsGot[j]=res[i].emotions[j]["emotion"];
+                    
+                    emotionsGot[j]["time"]=j;
+                    emotionsJSON.push(emotionsGot[j]);
+                }
+                plot(emotionsJSON,i, username);
             }
-            plot(emotionsJSON);
         },
         async: false
 
@@ -141,9 +152,13 @@ function allEmotions() {
 //     console.log(emotionsJSON);
 // };
 
-var plot = function(emotionsJSON){
+var plot = function(emotionsJSON, index, username){
+    var element = "" + "#chart-line" + index;
+
+    $("#mychart").append('<div class="chart-wrapper" id="chart-line'+ index +'"></div><br>');
+
     console.log('Plotting');
-    $("#chart-line1").empty();        
+    $(element.toString()).empty();        
     var chart = makeLineChart(emotionsJSON, 'time', {
         'Anger': {column: 'anger'},
         'Contempt': {column: 'contempt'},
@@ -153,9 +168,9 @@ var plot = function(emotionsJSON){
         'Neutral': {column: 'neutral'},
         'Sadness': {column: 'sadness'},
         'Surprise': {column: 'surprise'}
-    }, {xAxis: 'Time frame', yAxis: 'Percentage'});
+    }, {xAxis: 'Time frame', yAxis: 'Percentage', text: "Emotions"});
     console.log('Setting up line chart');    
-    chart.bind("#chart-line1");
+    chart.bind(element.toString());
     console.log('Rendering the chart');  
-    chart.render();
+    chart.render(username);
 };

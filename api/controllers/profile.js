@@ -14,5 +14,20 @@ module.exports.profileRead = function(req, res) {
         res.status(200).json(user);
       });
   }
-  
 };
+
+
+module.exports.addRoom = function(req,res){
+  let id = req.body.user;
+  let updateObj = { $push : { "rooms" : req.body.room } };
+  User.findByIdAndUpdate(id, updateObj, function(err) {
+    if (err) {
+        console.log(err);
+        res.error(err).send();
+    }
+    console.log("Added");
+    res.status(200);
+});
+
+};
+

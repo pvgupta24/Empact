@@ -15,22 +15,22 @@
           <div class="list-group list-group-flush">
             
               <a href="#" class="list-group-item waves-effect">
-                  <h3>Virtual Classroom</h3></a>              
+                  <h3>Empact</h3></a>              
               <a routerLink="/dashboard" class="list-group-item waves-effect active">
                   <i class="fa fa-pie-chart mr-3"></i>Dashboard</a>              
-              <a class="list-group-item list-group-item-action waves-effect">
-                  <i class="fa fa-table mr-3"></i>Find new courses</a>
+              <!-- <a class="list-group-item list-group-item-action waves-effect">
+                  <i class="fa fa-table mr-3"></i>Find new courses</a> -->
               <a routerLink="/profile" href="#" class="list-group-item list-group-item-action waves-effect">
                   <i class="fa fa-user mr-3"></i>Profile</a>
-                <a *ngIf="user?.faculty" data-toggle="modal" data-target="#exampleModal">
-                    <button type="button" class="btn btn-success" >New Course</button>
+                <a class="list-group-item list-group-item-action waves-effect" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-tv mr-3"></i>New Room
                 </a>
-                <!-- Modal -->
+        <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add new course</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Make New Room</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -38,18 +38,18 @@
                         <div class="modal-body">
                             <div class="md-form mb-5">
                                 <i class="fa fa-user prefix grey-text"></i>
-                                <input type="text" id="form34" class="form-control" [(ngModel)]="newcourse.code">
-                                <label data-error="wrong" data-success="right" for="form34">Course Code</label>
+                                <input type="text" id="form34" class="form-control" [(ngModel)]="newroom.code">
+                                <label data-error="wrong" data-success="right" for="form34">Room Code</label>
                             </div>
                             <div class="md-form mb-5">
                                 <i class="fa fa-user prefix grey-text"></i>
-                                <input type="text" id="form34" class="form-control" [(ngModel)]="newcourse.name">
-                                <label data-error="wrong" data-success="right" for="form34">Course Name</label>
+                                <input type="text" id="form34" class="form-control" [(ngModel)]="newroom.name">
+                                <label data-error="wrong" data-success="right" for="form34">Room Name</label>
                             </div>
                         </div>
                         <div class="modal-footer">
 
-                            <button class="btn btn-unique" (click)="newCourse()">Add course 
+                            <button class="btn btn-unique" (click)="newRoom()">Add Room. 
                                 <i class="fa fa-paper-plane-o ml-1"></i></button>
                         </div>
                     </div>
@@ -81,30 +81,29 @@
 
             <!--Card group-->
         <div class="card-deck">
-            <div *ngFor = "let course of courses" class="wow fadeIn">
-                <a routerLink="{{'/course/'+course.code}}">
-                <!--Card-->
-                <div class="card mb-4" >                    
+            <div *ngFor = "let room of rooms" class="wow fadeIn col-lg-6">
+                <a routerLink="{{'/room/'+room.code}}">
+                    <!--Card-->
+                    <div class="card mb-4 col" >                    
+                        
+                        <!--Card content-->
+                        <div class="card-body">
 
-                    <!--Card content-->
-                    <div class="card-body">
+                            <!--Title-->
+                            <h4 class="card-title">{{room.code}} - {{room.name}}</h4>
 
-                        <!--Title-->
-                        <h4 class="card-title">{{course.code}} - {{course.name}}</h4>
+                            <!--Text-->
+                            <p class="card-text">Room Description</p>
 
-                        <!--Text-->
-                        <p class="card-text">Course Description</p>
+                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                            <button type="button" class="btn btn-light-blue btn-md">Enter Room</button>
+                        </div>
+                        <!--Card content-->
 
-                        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                        <button type="button" class="btn btn-light-blue btn-md">Go to Course Page</button>
                     </div>
-                    <!--Card content-->
-
-                </div>
-                <!--Card-->
+                    <!--Card-->
                 </a>
-            </div>
-            
+            </div>            
 
         </div>
         <!--Card group-->
@@ -115,35 +114,3 @@
 
   </div>
 </div>
-
-
-
-
-
-
-
-
-<!-- 
-
-
-<div class="container">
-  <h1>    
-    {{user?.name | titlecase}}'s Dashboard 
-  </h1>
-
-<div>
-  <span *ngIf="user?.faculty" class="label label-primary">Faculty</span>
-  <span *ngIf="!user?.faculty" class="label label-success">Student</span>
-</div>
-<hr>
-<div *ngIf="user?.faculty">
-  <button type="button" class="btn btn-success" (click)="newCourse()">New Course</button>
-</div>
-
-<div class="container">
-  <div *ngFor="let course of users?.courses">
-        
-  </div>
-</div>
-
-</div> -->

@@ -21,8 +21,8 @@
                         <div id="meet"></div>
                     </div>
                     <div class="col-4">
-                        <form>
-                            <input type=button class="btn btn-primary" value="Take Snapshot" onClick="takeSnap()">
+                            <form>
+                            <input type=button class="btn btn-primary" value="Take Snapshot" (click)="sendSnaps()">
                             <input type=button class="btn btn-primary" value="Get All Emotions" onClick="allEmotions()">
                         </form>
                         <div id="my_camera"></div>
@@ -38,4 +38,7 @@
             </div>  
    </div>
  </div>
- <div class="chart-wrapper" id="chart-line1"></div> 
+<div id="mychart">
+    
+</div>
+
