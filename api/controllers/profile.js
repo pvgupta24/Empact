@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
+// function to read the profile of the user
 module.exports.profileRead = function(req, res) {
 
   if (!req.payload._id) {

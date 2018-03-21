@@ -3,11 +3,6 @@ function makeLineChart(dataset, xName, yObjs, axisLables) {
     var color = d3.scale.category10();
     chartObj.xAxisLable = axisLables.xAxis;
     chartObj.yAxisLable = axisLables.yAxis;
-    /*
-     yObjsects format:
-     {y1:{column:'',name:'name',color:'color'},y2}
-     */
-
     chartObj.data = dataset;
     chartObj.margin = {top: 15, right: 60, bottom: 30, left: 50};
     chartObj.width = 650 - chartObj.margin.left - chartObj.margin.right;
@@ -128,7 +123,12 @@ function makeLineChart(dataset, xName, yObjs, axisLables) {
 // Render the chart
     chartObj.render = function (username) {
         //Create SVG element
-        chartObj.svg = chartObj.chartDiv.append("svg").attr("class", "chart-area").attr("width", chartObj.width + (chartObj.margin.left + chartObj.margin.right)).attr("height", chartObj.height + (chartObj.margin.top + chartObj.margin.bottom)).append("g").attr("transform", "translate(" + chartObj.margin.left + "," + chartObj.margin.top + ")");
+        chartObj.svg = chartObj.chartDiv.append("svg").attr("class", "chart-area")
+        //.attr("width", chartObj.width + (chartObj.margin.left + chartObj.margin.right))
+        //.attr("height", chartObj.height + (chartObj.margin.top + chartObj.margin.bottom))
+        .attr("width", 600)
+        .attr("height", 600)
+        .append("g").attr("transform", "translate(" + chartObj.margin.left + "," + chartObj.margin.top + ")");
 
         // Draw Lines
         for (var y  in yObjs) {
@@ -145,8 +145,7 @@ function makeLineChart(dataset, xName, yObjs, axisLables) {
         .attr("x", (chartObj.width / 2))             
         .attr("y", 0 - (chartObj.margin.top / 10))
         .attr("text-anchor", "middle")  
-        .style("font-size", "16px") 
-//        .style("text-decoration", "underline")      
+        .style("font-size", "16px")   
         .text(username);
 
         chartObj.svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + chartObj.height + ")").call(chartObj.xAxis).append("text").attr("class", "label").attr("x", chartObj.width / 2).attr("y", 30).style("text-anchor", "middle").text(chartObj.xAxisLable);

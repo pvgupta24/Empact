@@ -8,7 +8,6 @@ var auth = jwt({
 
 var ctrlProfile = require('../controllers/profile');
 var ctrlAuth = require('../controllers/authentication');
-// var ctrlCourse = require('../controllers/course');
 var ctrlEmotion = require('../controllers/emotion');
 
 // profile
