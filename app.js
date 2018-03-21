@@ -1,10 +1,3 @@
-/*
-
-  There are some minor modifications to the default Express setup
-  Each is commented and marked with [SH] to make them easy to find
-
- */
-
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -12,20 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-// [SH] Require Passport
+// Require Passport
 var passport = require('passport');
 
-// [SH] Bring in the data model
+// Bring in the data model
 require('./api/models/db');
-// [SH] Bring in the Passport config after model is defined
+// Bring in the Passport config after model is defined
 require('./api/config/passport');
 
 
-// [SH] Bring in the routes for the API (delete the default routes)
+// Bring in the routes for the API (delete the default routes)
 var routesApi = require('./api/routes/index');
 
 var app = express();
-
 app.use(express.static(path.join(__dirname,'client','dist')));
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
@@ -39,10 +31,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
-// [SH] Initialise Passport before using the route middleware
+// Initialise Passport before using the route middleware
 app.use(passport.initialize());
 
-// [SH] Use the API routes when path starts with /api
+// Use the API routes when path starts with /api
 app.use('/api', routesApi);
 
 // catch 404 and forward to error handler
@@ -54,7 +46,7 @@ app.use(function(req, res, next) {
 
 // error handlers
 
-// [SH] Catch unauthorised errors
+// Catch unauthorised errors
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401);

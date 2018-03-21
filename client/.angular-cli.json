@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "mean-stack-authentication"
+    "name": "empact"
   },
   "apps": [
     {
@@ -22,7 +22,8 @@
         "styles.css",
         "assets/css/bootstrap.min.css",
         "assets/css/mdb.min.css",
-        "assets/css/style.min.css"
+        "assets/css/style.min.css",
+        "assets/css/multiline.css"
       ],
       "_comment":[
          "../node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -35,7 +36,9 @@
         "assets/js/jquery-3.2.1.min.js",
         "assets/js/bootstrap.min.js",
         "assets/js/mdb.min.js",
-        "assets/js/popper.min.js"
+        "assets/js/popper.min.js",
+        "assets/js/emotion.js",
+        "assets/js/multiline.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

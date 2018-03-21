@@ -1,47 +1,41 @@
 <!-- Full Page Intro -->
 
-<div class="view full-page-intro"  style="background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/03/99/62/8857fa0902ae111.jpg'); background-repeat: no-repeat; background-size: cover;"> -->
+<div class="full-page-intro">
+<!--class="view" style="background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/03/99/62/8857fa0902ae111.jpg'); background-repeat: no-repeat; background-size: cover;" -->
+ 
   <div class="my-view container">
-     
-   <main class="mx-lg-5 text-center">
-     
-         <div class="container-fluid mt-5">
-               <!-- Heading -->
-               <div class="card mb-4 wow fadeIn">
-                 <!--Card content-->
-                 <div class="card-body d-sm-flex justify-content-between">
-                     <h4 class="mb-2 mb-sm-0 pt-1">Welcome to {{room}}</h4>
-                 <button type="button" class="btn btn-primary" (click)="startSession()">Start Session</button>
-                     
-               </div>   
-           </div>
-           <!-- Heading -->
-           <div id="meet" class=""></div>
-         </div>
- 
-         <div class="container-fluid mt-5">
- 
-             <!-- Heading -->
-             <div class="card mb-4 wow fadeIn">
- 
-                 <!--Card content-->
-                 <div class="card-body d-sm-flex justify-content-between">
-                     <h4 class="mb-2 mb-sm-0 pt-1">Chart</h4>
-                 </div>
- 
-             </div>
- 
-             <div class="col-md-10 mb-4">
- 
-                 <div class="card">                     
-                 </div>
-                 
-             </div>
- 
-         </div>
-     </main>
+        <div class="container">
+            <!-- Heading -->
+            <div class="card mb-4 wow fadeIn">
+                    <!--Card content-->
+                    <div class="card-body d-sm-flex justify-content-between">
+                        <h4 class="mb-2 mb-sm-0 pt-1">Welcome to Room {{room}}</h4>
+                        <button type="button" *ngIf="!sessionStatus" class="btn btn-primary" (click)="startSession()">Start Session</button> 
+                        <button type="button" *ngIf="sessionStatus" class="btn btn-primary" (click)="stopSession()">Stop Session</button> 
+                    </div>   
+                </div>
+                <!-- Heading -->
+                <div class="row">
+                    <div class="col-8">
+                        <!--Container to hold the Meet-->
+                        <div id="meet"></div>
+                    </div>
+                    <div class="col-4">
+                        <form>
+                            <input type=button class="btn btn-primary" value="Take Snapshot" onClick="takeSnap()">
+                            <input type=button class="btn btn-primary" value="Get All Emotions" onClick="allEmotions()">
+                        </form>
+                        <div id="my_camera"></div>
+                        <div> Emotions:
+                            <pre id="results"></pre>
+                            <pre id = "allEmotionsresult"></pre>
+                        </div>
+                        <canvas id="viewport" width="320" height="240"></canvas>
+                        
+                    </div>
+                </div>
+                       
+            </div>  
    </div>
  </div>
- 
- 
- 
+ <div class="chart-wrapper" id="chart-line1"></div> 

@@ -10,7 +10,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 })
 
 export class DashboardComponent {
-  user: UserDetails;
+  user: UserDetails
   courses : Object[] = []
   newcourse = {
     code:"",
@@ -24,7 +24,7 @@ export class DashboardComponent {
   };
   ngOnInit() {    
     this.auth.profile().subscribe(user => {
-      this.user = user;
+    this.user = user;
       
       // for (var course in user.courses){
       //   console.log("Requesting "+ user.courses[course]);
@@ -38,9 +38,7 @@ export class DashboardComponent {
     });
     
   }
-  newRoom(){
-    
-  }
+  newRoom(){}
   // newCourse() {    
   //   this.http.post('/api/newCourse',
   //   JSON.stringify({"name":this.newcourse.name,

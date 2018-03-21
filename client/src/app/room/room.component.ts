@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import { AuthenticationService, UserDetails } from '../authentication.service';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 declare function JitsiMeetExternalAPI(a,b): void;
+declare function setWebCam(): any;
 
 @Component({
   selector: 'app-room',
@@ -11,23 +14,42 @@ declare function JitsiMeetExternalAPI(a,b): void;
 export class RoomComponent implements OnInit {
 
   room
-  
-  constructor(private route: ActivatedRoute) {
-    this.route.params.subscribe( params => this.room=params.room );
+  api
+  sessionStatus:boolean = false
+  user: UserDetails
+
+  constructor(private auth: AuthenticationService,private route: ActivatedRoute) {
+    this.route.params.subscribe( params => this.room = params.room );
     console.log("Current room is "+ this.room);
   }
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   ngOnInit() {
+    setWebCam();
+    this.auth.profile().subscribe(user => {
+      this.user = user;  
+      }, (err) => {
+        console.error(err);
+      });
   }
   startSession(){
     console.log("Connecting to room");
-    var domain = "meet.jit.si";
-    var options = {
-        roomName: "empact-room" + this.room,// +"somerandom",
+    let domain = "meet.jit.si";
+    let options = {
+        roomName: "empact-room-" + this.room,// +"somerandom",
         width: 700,
         height: 600,
         parentNode: document.querySelector('#meet')
     }
-    var api = new JitsiMeetExternalAPI(domain, options);    
+    this.sessionStatus = true;
+    this.api = new JitsiMeetExternalAPI(domain, options);
+    this.api.executeCommand('displayName', this.user.name);
+        
   }
-
+  stopSession(){
+    this.api.dispose();
+    this.sessionStatus = false;        
+  }
+  // TODO: Use TS sendEmotion(){}
 }
