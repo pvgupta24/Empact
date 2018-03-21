@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
+// URL to connect to Cosmos Database, NoSql
 var dbURI = 'mongodb://empactcosmosdb:2ELvodEB5uvfhUD0KeTLTWuykADcCMCeR0H2cUjlM6yXsclLjhnalERVremVrFImEdLyRg6TGt196mv8qEJ5LQ==@empactcosmosdb.documents.azure.com:10255/?ssl=true';
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGOLAB_URI;
 }
 
+// connection function
 mongoose.connect(dbURI);
 
 // CONNECTION EVENTS
@@ -46,6 +48,6 @@ process.on('SIGTERM', function() {
   });
 });
 */
-// BRING IN YOUR SCHEMAS & MODELS
+// Bringing In Schemas & Models
 require('./users');
 require('./emotions');

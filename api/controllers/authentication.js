@@ -7,6 +7,7 @@ var sendJSONresponse = function(res, status, content) {
   res.json(content);
 };
 
+// module to register the User
 module.exports.register = function(req, res) {
 
   // if(!req.body.name || !req.body.email || !req.body.password) {
@@ -25,15 +26,17 @@ module.exports.register = function(req, res) {
 
   user.save(function(err) {
     var token;
+    // generate the token
     token = user.generateJwt();
+    // send success status 200
     res.status(200);
     res.json({
       "token" : token
     });
   });
-
 };
 
+// module for login of User
 module.exports.login = function(req, res) {
 
   // if(!req.body.email || !req.body.password) {
@@ -54,7 +57,9 @@ module.exports.login = function(req, res) {
 
     // If a user is found
     if(user){
+      // generate the token
       token = user.generateJwt();
+      // send success status 200
       res.status(200);
       res.json({
         "token" : token

@@ -128,7 +128,12 @@ function makeLineChart(dataset, xName, yObjs, axisLables) {
 // Render the chart
     chartObj.render = function (username) {
         //Create SVG element
-        chartObj.svg = chartObj.chartDiv.append("svg").attr("class", "chart-area").attr("width", chartObj.width + (chartObj.margin.left + chartObj.margin.right)).attr("height", chartObj.height + (chartObj.margin.top + chartObj.margin.bottom)).append("g").attr("transform", "translate(" + chartObj.margin.left + "," + chartObj.margin.top + ")");
+        chartObj.svg = chartObj.chartDiv.append("svg").attr("class", "chart-area")
+        //.attr("width", chartObj.width + (chartObj.margin.left + chartObj.margin.right))
+        //.attr("height", chartObj.height + (chartObj.margin.top + chartObj.margin.bottom))
+        .attr("width", 600)
+        .attr("height", 600)
+        .append("g").attr("transform", "translate(" + chartObj.margin.left + "," + chartObj.margin.top + ")");
 
         // Draw Lines
         for (var y  in yObjs) {
