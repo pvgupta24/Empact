@@ -15,10 +15,6 @@ var userSchema = new mongoose.Schema({
   },
   hash: String,
   salt: String,
-  faculty:{
-    type: Boolean,
-    default: false
-  },
   mob: String,
   dob: Date,
   education: String,
@@ -27,10 +23,11 @@ var userSchema = new mongoose.Schema({
     enum: ["male", "female"],
     default: "male"
   },
-  courses:{
-    type: [mongoose.Schema.Types.ObjectId],
-    default: []
-  }
+  rooms:[{
+    name:String,
+    code: String,
+    owner: String
+  }]
 });
 
 // hash the password

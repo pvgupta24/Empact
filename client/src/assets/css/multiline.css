@@ -55,7 +55,7 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    font-size: 12px;
+    font-size: 16px;
     padding: 10px 40px;
 }
 .chart-wrapper .legend > div {

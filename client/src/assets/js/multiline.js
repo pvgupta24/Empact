@@ -3,11 +3,6 @@ function makeLineChart(dataset, xName, yObjs, axisLables) {
     var color = d3.scale.category10();
     chartObj.xAxisLable = axisLables.xAxis;
     chartObj.yAxisLable = axisLables.yAxis;
-    /*
-     yObjsects format:
-     {y1:{column:'',name:'name',color:'color'},y2}
-     */
-
     chartObj.data = dataset;
     chartObj.margin = {top: 15, right: 60, bottom: 30, left: 50};
     chartObj.width = 650 - chartObj.margin.left - chartObj.margin.right;
@@ -150,8 +145,7 @@ function makeLineChart(dataset, xName, yObjs, axisLables) {
         .attr("x", (chartObj.width / 2))             
         .attr("y", 0 - (chartObj.margin.top / 10))
         .attr("text-anchor", "middle")  
-        .style("font-size", "16px") 
-//        .style("text-decoration", "underline")      
+        .style("font-size", "16px")   
         .text(username);
 
         chartObj.svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + chartObj.height + ")").call(chartObj.xAxis).append("text").attr("class", "label").attr("x", chartObj.width / 2).attr("y", 30).style("text-anchor", "middle").text(chartObj.xAxisLable);
