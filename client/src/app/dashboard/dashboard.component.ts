@@ -25,27 +25,29 @@ export class DashboardComponent {
   ngOnInit() {    
     this.auth.profile().subscribe(user => {
       this.user = user;
-      //Log the user details
-      console.log(user.courses);
-      //Load MyCourses
-      for (var course in user.courses){
-        console.log("Requesting "+ user.courses[course]);
-        this.http.get('/api/courseDetails/'+ user.courses[course] ,this.httpOptions)
-        .subscribe(res => {this.courses.push(res);});
-      }
-      this.newcourse.owner = user._id;
+      
+      // for (var course in user.courses){
+      //   console.log("Requesting "+ user.courses[course]);
+      //   this.http.get('/api/courseDetails/'+ user.courses[course] ,this.httpOptions)
+      //   .subscribe(res => {this.courses.push(res);});
+      // }
+      // this.newcourse.owner = user._id;
+
     }, (err) => {
       console.error(err);
     });
     
   }
-  newCourse() {    
-    this.http.post('/api/newCourse',
-    JSON.stringify({"name":this.newcourse.name,
-     "code":this.newcourse.code,
-     "owner":this.newcourse.owner}), this.httpOptions)
-    .subscribe(res => console.log(res));
-    // this.router.navigateByUrl('/newCourse');
+  newRoom(){
+    
   }
+  // newCourse() {    
+  //   this.http.post('/api/newCourse',
+  //   JSON.stringify({"name":this.newcourse.name,
+  //    "code":this.newcourse.code,
+  //    "owner":this.newcourse.owner}), this.httpOptions)
+  //   .subscribe(res => console.log(res));
+  //   // this.router.navigateByUrl('/newCourse');
+  // }
 
 }

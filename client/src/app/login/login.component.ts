@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
+  
   credentials: TokenPayload = {
     email: '',
     password: ''
@@ -15,7 +16,7 @@ export class LoginComponent {
 
   login() {
     this.auth.login(this.credentials).subscribe(() => {
-      this.router.navigateByUrl('/profile');
+      this.router.navigateByUrl('/dashboard');
     }, (err) => {
       console.error(err);
     }); 

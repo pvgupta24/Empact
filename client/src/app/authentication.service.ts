@@ -8,8 +8,6 @@ export interface UserDetails {
   _id: string;
   email: string;
   name: string;
-  faculty: boolean;
-  courses: [string]
   exp: number;
   iat: number;
 }
@@ -23,7 +21,6 @@ export interface TokenPayload {
   password: string;
   //Name and class optional for login
   name?: string;
-  faculty?: boolean;
 }
 
 @Injectable()

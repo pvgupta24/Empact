@@ -4,5 +4,5 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  // Add array for *ngFor
+  // TODO : Add array for *ngFor later
 }

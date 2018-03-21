@@ -12,7 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CourseComponent } from './course/course.component';
+// import { CourseComponent } from './course/course.component';
+import { RoomComponent } from './room/room.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
-  { path: 'course/:courseCode', component: CourseComponent, canActivate: [AuthGuardService] }
+  // TODO Restrict usage to logged in after testing
+  { path: 'room/:room', component: RoomComponent }
 ];
 
 @NgModule({
@@ -31,7 +33,8 @@ const routes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    CourseComponent
+    // CourseComponent,
+    RoomComponent
   ],
   imports: [
     BrowserModule,

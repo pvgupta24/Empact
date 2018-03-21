@@ -8,22 +8,20 @@ var auth = jwt({
 
 var ctrlProfile = require('../controllers/profile');
 var ctrlAuth = require('../controllers/authentication');
-var ctrlCourse = require('../controllers/course');
+// var ctrlCourse = require('../controllers/course');
+var ctrlEmotion = require('../controllers/emotion');
+
 // profile
 router.get('/profile', auth, ctrlProfile.profileRead);
-
-// courses
-//router.get('/courses', auth, );
 
 // authentication
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 
-//new course
-router.post('/newCourse',ctrlCourse.register);
+// /api/emotion routes
+router.post('/emotion',ctrlEmotion.addEmotion);
+router.get('/emotion',ctrlEmotion.getEmotions);
 
-//retrieve user's courses
-router.get('/courseDetails/:course',ctrlCourse.courseDetails)
 
 
 module.exports = router;

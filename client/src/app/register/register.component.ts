@@ -9,8 +9,7 @@ export class RegisterComponent {
   credentials: TokenPayload = {
     email: '',
     name: '',
-    password: '',
-    faculty: false,
+    password: ''
   };
 
   constructor(private auth: AuthenticationService, private router: Router) {}
@@ -18,7 +17,8 @@ export class RegisterComponent {
   register() {
     console.log(this.credentials);
     this.auth.register(this.credentials).subscribe(() => {
-      this.router.navigateByUrl('/profile');
+      // TODO : display appropriate messages for success and fail
+      this.router.navigateByUrl('/dashboard');      
     }, (err) => {
       console.error(err);
     });
