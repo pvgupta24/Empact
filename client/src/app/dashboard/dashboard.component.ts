@@ -11,8 +11,8 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 
 export class DashboardComponent {
   user: UserDetails
-  courses : Object[] = []
-  newcourse = {
+  rooms : Object[] = []
+  newroom = {
     code:"",
     name:"",
     owner:""
@@ -25,27 +25,25 @@ export class DashboardComponent {
   ngOnInit() {    
     this.auth.profile().subscribe(user => {
     this.user = user;
-      
-      // for (var course in user.courses){
-      //   console.log("Requesting "+ user.courses[course]);
-      //   this.http.get('/api/courseDetails/'+ user.courses[course] ,this.httpOptions)
-      //   .subscribe(res => {this.courses.push(res);});
-      // }
-      // this.newcourse.owner = user._id;
+    this.rooms = user.rooms;
+      for (let room in this.rooms){
+        console.log("Requesting "+ JSON.stringify(this.rooms[room]));
+      }
+      this.newroom.owner = user.name;
 
     }, (err) => {
       console.error(err);
     });
     
   }
-  newRoom(){}
-  // newCourse() {    
-  //   this.http.post('/api/newCourse',
-  //   JSON.stringify({"name":this.newcourse.name,
-  //    "code":this.newcourse.code,
-  //    "owner":this.newcourse.owner}), this.httpOptions)
-  //   .subscribe(res => console.log(res));
-  //   // this.router.navigateByUrl('/newCourse');
-  // }
+  
+  newRoom() {    
+    this.rooms.push(this.newroom);
+    this.http.post('/api/newRoom',
+    JSON.stringify({"user": this.user._id,"room":this.newroom
+    }), this.httpOptions)
+    .subscribe(res => console.log(res));
+    this.router.navigateByUrl('/room/'+this.newroom.code);
+  }
 
 }

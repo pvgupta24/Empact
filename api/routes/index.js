@@ -22,6 +22,7 @@ router.post('/login', ctrlAuth.login);
 router.post('/emotion',ctrlEmotion.addEmotion);
 router.get('/emotion',ctrlEmotion.getEmotions);
 
-
+// New Room route
+router.post('/newRoom',ctrlProfile.addRoom);
 
 module.exports = router;
