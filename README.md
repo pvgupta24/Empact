@@ -22,6 +22,7 @@ sudo sysctl -p --system
 ### Demo
 - Video Link : https://www.youtube.com/watch?v=zXlO3CSY_jE
 - Presentation Link : https://1drv.ms/p/s!AlCM_gUyvQVGiAHF2tQoze8F3Z0A
+- App Here : https://empact.westus2.cloudapp.azure.com:3000/
 
 ### Future Work:
 - Private Discussion rooms
@@ -30,7 +31,7 @@ sudo sysctl -p --system
 
 ### Contributors
 
- Team Snorlax
+Team Snorlax
 
 - Praveen Kumar Gupta
 - Shashank P
