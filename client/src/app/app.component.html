@@ -28,12 +28,12 @@
 
       <!-- Right -->
       <ul class="navbar-nav nav-flex-icons"> <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="#">Home
+          <a class="nav-link waves-effect waves-light" href="#"><i class="fa fa-home"></i>Home
             <span class="sr-only">(current)</span>
           </a>
         </li>
           <li *ngIf="!auth.isLoggedIn()" class="nav-item">
-            <a class="nav-link waves-effect waves-light" routerLink="/login">Sign in</a></li>
+            <a class="nav-link waves-effect waves-light" routerLink="/login"><i class="fa fa-sign-in"></i>Sign in</a></li>
           <li *ngIf="!auth.isLoggedIn()" class="nav-item">
             <a class="nav-link waves-effect waves-light" routerLink="/register">Register</a></li>  
           
@@ -41,9 +41,9 @@
             <a class="nav-link waves-effect waves-light" routerLink="/profile">{{ auth.getUserDetails()?.name }}</a></li>
            -->
             <li *ngIf="auth.isLoggedIn()" class="nav-item">
-            <a class="nav-link waves-effect waves-light" routerLink="/dashboard">Dashboard</a></li>
+            <a class="nav-link waves-effect waves-light" routerLink="/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
           <li *ngIf="auth.isLoggedIn()" class="nav-item">
-            <a class="nav-link waves-effect waves-light" (click)="auth.logout()">Logout</a></li>
+            <a class="nav-link waves-effect waves-light" (click)="auth.logout()"><i class="fa fa-sign-out"></i>Logout</a></li>
        
         <li class="nav-item">
           <a href="https://github.com/pvgupta24/Empact" class="nav-link" target="_blank">

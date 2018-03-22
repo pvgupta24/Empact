@@ -11,7 +11,13 @@ Use the following commands if changes are not served automatically
 sudo sysctl fs.inotify.max_user_watches=524288
 sudo sysctl -p --system
 ```
-* Open http://localhost:4200 to see the application
+* Open http://localhost:4200 to see the application in production.
+
+### Deployment
+* In client subdirectory use `ng build` to use angular cli to build the website.
+* In the root directory use `npm start` and start the server.
+* Open http://localhost:3000 to see the live application.
+
 
 ### Demo
 - Video Link : https://www.youtube.com/watch?v=zXlO3CSY_jE

@@ -21,8 +21,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
-  // TODO Restrict usage to logged in after testing
-  { path: 'room/:room', component: RoomComponent }
+  { path: 'room/:room', component: RoomComponent, canActivate: [AuthGuardService]  }
 ];
 
 @NgModule({
@@ -33,7 +32,6 @@ const routes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    // CourseComponent,
     RoomComponent
   ],
   imports: [

@@ -1,6 +1,6 @@
 <!-- Full Page Intro -->
 
-<div class="full-page-intro">
+<div class="full-page-intro" [style.backgroundColor]="black">
 
   <div class="my-view container">
         <div class="container">
@@ -9,8 +9,8 @@
                     <!--Card content-->
                     <div class="card-body d-sm-flex justify-content-between">
                         <h4 class="mb-2 mb-sm-0 pt-1">Welcome to Room {{room}}</h4>
-                        <button type="button" *ngIf="!sessionStatus" class="btn btn-primary" (click)="startSession()">Start Session</button> 
-                        <button type="button" *ngIf="sessionStatus" class="btn btn-primary" (click)="stopSession()">Stop Session</button> 
+                        <button type="button" *ngIf="!sessionStatus" class="btn btn-primary" (click)="startSession()"><i class="fa fa-tv mr-3"></i>Start Session</button> 
+                        <button type="button" *ngIf="sessionStatus" class="btn btn-primary" (click)="stopSession()"><i class="fa fa-stop mr-3"></i>Stop Session</button> 
                     </div>   
                 </div>
                 <!-- Heading -->
@@ -20,9 +20,9 @@
                         <div id="meet"></div>
                     </div>
                     <div class="col-4">
-                            <form>
-                            <input type=button class="btn btn-primary" value="Take Snapshot" (click)="sendSnaps()">
-                            <input type=button class="btn btn-primary" value="Get All Emotions" onClick="allEmotions()">
+                        <form>
+                            <input type="button" class="btn btn-primary" value="Take Snapshot" (click)="sendSnaps()">
+                            <input type="button" class="btn btn-primary" value="Get  Emotions" onClick="allEmotions()">
                         </form>
                         <div  id="my_camera"></div>
                         <div> Emotions:
