@@ -20,13 +20,13 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-//var server = http.createServer(app);
+var server = http.createServer(app);
 
-var server = https.createServer({
-                key: fs.readFileSync('./bin/key.pem'),
-                cert: fs.readFileSync('./bin/cert.pem'),
-                passphrase: "Empact247"
-              }, app);
+// var server = https.createServer({
+//                 key: fs.readFileSync('./bin/key.pem'),
+//                 cert: fs.readFileSync('./bin/cert.pem'),
+//                 passphrase: "Empact247"
+//               }, app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -94,4 +94,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }

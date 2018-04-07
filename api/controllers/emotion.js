@@ -11,10 +11,10 @@ module.exports.addEmotion = function(req, res) {
     let update = {"$push": {"emotions": {"time": new Date(), "emotion": emotion}}};
     // If user not present create a new one, else update in the Emotion Schema
     Emotion.findOneAndUpdate(query, update, {upsert: true, new: true}, function (err,doc) {
-        if(err)
-            {   console.log(err);
-                res.error=err;
-            }
+        if(err){   
+            console.log(err);
+            res.error=err;
+        }
         else
             return res.status(200).send(doc);
     });

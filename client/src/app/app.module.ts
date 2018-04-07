@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthenticationService } from './authentication.service';
+import { EmotionService } from './emotion.service';
+
 import { AuthGuardService } from './auth-guard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 // import { CourseComponent } from './course/course.component';
@@ -42,7 +44,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthenticationService, 
-    AuthGuardService
+    AuthGuardService,
+    EmotionService
   ],
   bootstrap: [AppComponent]
 })

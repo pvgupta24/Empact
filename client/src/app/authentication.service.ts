@@ -95,7 +95,6 @@ export class AuthenticationService {
     return this.request('get', 'profile');
   }
   
-
   public logout(): void {
     this.token = '';
     window.localStorage.removeItem('mean-token');

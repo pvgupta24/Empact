@@ -15,14 +15,14 @@ var userSchema = new mongoose.Schema({
   },
   hash: String,
   salt: String,
-  mob: String,
-  dob: Date,
-  education: String,
-  gender: {
-    type: String,
-    enum: ["male", "female"],
-    default: "male"
-  },
+  // mob: String,
+  // dob: Date,
+  // education: String,
+  // gender: {
+  //   type: String,
+  //   enum: ["male", "female"],
+  //   default: "male"
+  // },
   rooms:[{
     name:String,
     code: String,
