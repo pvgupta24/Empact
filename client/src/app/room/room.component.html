@@ -16,6 +16,20 @@
         </div>
       </div>
       <!-- Heading -->
+
+      <div class="row">
+          <div class="col-xs-12">
+            <video #video class="video"></video>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button md-raised-button color="primary" (click)="startRecording()"> Record </button>
+            <button md-raised-button color="primary"(click) ="stopRecording()"> Stop</button>
+            <button md-raised-button color="primary" (click)="download()"> Download</button>
+          </div>
+        </div>
+
       <div class="row">
         <div class="col-8">
           <!--Container to hold the Meet-->
@@ -25,8 +39,10 @@
           <form>
             <input type="button" class="btn btn-primary" value="Take Snapshot" (click)="sendSnaps()">
             <input type="button" class="btn btn-primary" value="Get  Emotions" onClick="allEmotions()">
-            <input type="button" class="btn btn-primary" value="Get All Emotions" (click)="getAllEmotions()">
             <input type="button" class="btn btn-primary" value="Plot Chart" (click)="plotChart()">
+            <input type="button" class="btn btn-primary" value="Plot All Emo" (click)="getAllEmotions();getAllEmotions();">
+            <input type="button" class="btn btn-primary" value="Rando" (click)="pl()">
+
           </form>
           <div id="my_camera"></div>
           <div> Emotions:
@@ -43,9 +59,18 @@
 </div>
 <div id="mychart">
 </div>
+<div class="container">
+  <div id="charts">
+    <div *ngFor="let item of items">
+      <div *ngIf="charts[item]">
+        <canvas id="canvas{{item}}">{{ charts[item] }}</canvas>
+      </div>
+    </div>
+  </div>
+</div>
 
-<div>
+<!-- <div>
   <div *ngIf="chart">
     <canvas id="canvas">{{ chart }}</canvas>
   </div>
-</div>
+</div> -->

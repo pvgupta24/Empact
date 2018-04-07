@@ -37,6 +37,7 @@
         "assets/js/bootstrap.min.js",
         "assets/js/mdb.min.js",
         "assets/js/popper.min.js",
+        "assets/js/wow.min.js",
         "assets/js/emotion.js",
         "assets/js/multiline.js"
       ],
