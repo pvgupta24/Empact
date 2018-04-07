@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { AuthenticationService, UserDetails } from '../authentication.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Chart } from "chart.js";
 import { EmotionService } from "../emotion.service";
+
+import * as RecordRTC from 'recordrtc';
 
 declare function JitsiMeetExternalAPI(a, b): void;
 declare function takeSnap(a): any;
@@ -14,13 +16,15 @@ declare function takeSnap(a): any;
 	styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
+	@ViewChild('record') video: any;
 	room;
 	api;
 	sessionStatus: boolean = false;
 	user: UserDetails;
-	items = [0,1,2,3];
+	items = [0, 1, 2, 3];
 	charts = [];
-
+	private stream: MediaStream;
+	private recordRTC: any;
 	// count = [];
 	chart = [];
 
@@ -42,6 +46,75 @@ export class RoomComponent implements OnInit {
 		});
 		// setInterval(() => {console.log('Hey')},4000);
 	}
+	ngAfterViewInit() {
+		// set the initial state of the video
+		let video: HTMLVideoElement = this.video.nativeElement;
+		video.muted = false;
+		video.controls = true;
+		video.autoplay = false;
+	}
+	startRecording() {
+		let mediaConstraints:any = {
+			video: {
+				mediaSource: 'window',
+				// mandatory: {
+				// 	minWidth: 1280,
+				// 	minHeight: 720
+				// }
+			}, audio: true
+		};
+		navigator.mediaDevices
+			.getUserMedia(mediaConstraints)
+			.then(this.successCallback.bind(this), this.errorCallback.bind(this));
+	}
+	errorCallback(stream: MediaStream){
+
+	}
+	successCallback(stream: MediaStream) {
+		var options = {
+			mimeType: 'video/mp4', // or video/webm\;codecs=h264 or video/webm\;codecs=vp9
+			audioBitsPerSecond: 128000,
+			videoBitsPerSecond: 128000,
+			bitsPerSecond: 128000 // if this line is provided, skip above two
+		};
+		this.stream = stream;
+		this.recordRTC = RecordRTC(stream, options);
+		this.recordRTC.startRecording();
+		let video: HTMLVideoElement = this.video.nativeElement;
+		video.src = window.URL.createObjectURL(stream);
+		this.toggleControls();
+	}
+	toggleControls() {
+		let video: HTMLVideoElement = this.video.nativeElement;
+		video.muted = !video.muted;
+		video.controls = !video.controls;
+		video.autoplay = !video.autoplay;
+	}
+	stopRecording() {
+		let recordRTC = this.recordRTC;
+		recordRTC.stopRecording(this.processVideo.bind(this));
+		let stream = this.stream;
+		stream.getAudioTracks().forEach(track => track.stop());
+		stream.getVideoTracks().forEach(track => track.stop());
+	}
+	processVideo(audioVideoWebMURL) {
+		let video: HTMLVideoElement = this.video.nativeElement;
+		let recordRTC = this.recordRTC;
+		video.src = audioVideoWebMURL;
+		this.toggleControls();
+		var recordedBlob = recordRTC.getBlob();
+		recordRTC.getDataURL(function (dataURL) { });
+	  }
+
+	  download() {
+		this.recordRTC.save('video.webm');
+	  }
+
+
+
+
+
+
 	startSession() {
 		console.log("Connecting to room");
 		let domain = "meet.jit.si";
@@ -54,7 +127,7 @@ export class RoomComponent implements OnInit {
 		this.sessionStatus = true;
 		this.api = new JitsiMeetExternalAPI(domain, options);
 		this.api.executeCommand('displayName', this.user.name);
-		
+
 		// TODO: Integrate with TS
 		// takeSnap(this.user.name);
 	}
@@ -69,7 +142,7 @@ export class RoomComponent implements OnInit {
 		this.emotion.getAllEmotions()
 			.subscribe((res) => {
 				console.log(res);
-				
+
 				for (var i = 0; i < (<any>res).length; i++) {
 					let curr = {};
 					curr['username'] = res[i].username;
@@ -87,8 +160,8 @@ export class RoomComponent implements OnInit {
 		console.log(this.charts);
 		console.log(curr);
 		var dates = [];
-		var happiness = [], surprise = [], anger= [],
-		 sadness= [], disgust= [], fear= [], neutral=[], contempt=[];
+		var happiness = [], surprise = [], anger = [],
+			sadness = [], disgust = [], fear = [], neutral = [], contempt = [];
 		for (var j = 0; j < curr.dates.length; j++) {
 			dates.push(curr.dates[j].time);
 			happiness.push(curr.emotions[j].emotion.happiness);
@@ -105,7 +178,7 @@ export class RoomComponent implements OnInit {
 		}
 		console.log(surprise);
 		// this.charts.push(new Array());
-		
+
 		this.chart = new Chart(('canvas' + i), {
 			type: 'line',
 			data: {
