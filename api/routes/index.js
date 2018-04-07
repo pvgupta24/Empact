@@ -9,6 +9,8 @@ var auth = jwt({
 var ctrlProfile = require('../controllers/profile');
 var ctrlAuth = require('../controllers/authentication');
 var ctrlEmotion = require('../controllers/emotion');
+var ctrlUpload = require('../controllers/upload');
+var ctrlRoom = require('../controllers/rooms');
 
 // profile
 router.get('/profile', auth, ctrlProfile.profileRead);
@@ -21,7 +23,13 @@ router.post('/login', ctrlAuth.login);
 router.post('/emotion',ctrlEmotion.addEmotion);
 router.get('/emotion',ctrlEmotion.getEmotions);
 
-// New Room route
-router.post('/newRoom',ctrlProfile.addRoom);
+// Room route
+router.post('/newRoom', ctrlRoom.createRoom);
+router.post('/joinRoom', ctrlRoom.joinRoom);
+router.post('/viewRooms', ctrlRoom.viewRooms);
+
+// upload routes
+router.post('/upload', ctrlUpload.upload);
+router.post('/getURL', ctrlUpload.getURL);
 
 module.exports = router;

@@ -9,7 +9,7 @@ import * as RecordRTC from 'recordrtc';
 
 declare function JitsiMeetExternalAPI(a, b): void;
 declare function takeSnap(a): any;
-declare function getEmotions(a):any
+declare function getEmotions(a): any
 
 @Component({
 	selector: 'app-room',
@@ -31,7 +31,7 @@ export class RoomComponent implements OnInit {
 	private recordRTC: any;
 	// count = [];
 	// chart = [];
-	
+
 	constructor(private auth: AuthenticationService, private route: ActivatedRoute, private emotion: EmotionService) {
 		this.route.params.subscribe(params => this.room = params.room);
 		console.log("Current room is " + this.room);
@@ -60,12 +60,12 @@ export class RoomComponent implements OnInit {
 		let mediaConstraints: any = screen ? {
 			video: {
 				mediaSource: 'screen'
-			}, 
+			},
 			audio: true
 		} : {
-			video:true,
-			audio:true
-		};
+				video: true,
+				audio: true
+			};
 		this.recordStatus = true;
 		navigator.mediaDevices
 			.getUserMedia(mediaConstraints)
@@ -100,7 +100,7 @@ export class RoomComponent implements OnInit {
 		let stream = this.stream;
 		stream.getAudioTracks().forEach(track => track.stop());
 		stream.getVideoTracks().forEach(track => track.stop());
-		this.recordStatus = false;		
+		this.recordStatus = false;
 	}
 
 	processVideo(audioVideoWebMURL) {
@@ -130,16 +130,16 @@ export class RoomComponent implements OnInit {
 		this.api.executeCommand('displayName', this.user.name);
 
 		//Start capturing emotions and displaying in real time 
-		setInterval(()=>{
+		setInterval(() => {
 			getEmotions(this.user.name);
-			setTimeout(()=>{this.getAllEmotions();},1000);
-		},5000);
+			setTimeout(() => { this.getAllEmotions(); }, 1000);
+		}, 5000);
 
 		// TODO: Integrate with TS
 		// takeSnap(this.user.name);
 	}
 	sendSnaps() {
-		// takeSnap(this.user.name);
+		takeSnap(this.user.name);
 	}
 	stopSession() {
 		this.api.dispose();
@@ -157,17 +157,52 @@ export class RoomComponent implements OnInit {
 					// curr['dates'] = res[i].emotions;
 					// this.plotChart(curr, i);
 					this.plot(curr, i);
+					// notify speaker about negative emotions
+					this.notifySpeaker(curr, i);
 				}
 			}, (err) => {
 				console.error(err);
 			});
 
 	}
-	plot(curr, i){
+	plot(curr, i) {
 		this.items.push(i);
 		this.plotChart(curr, i);
 		this.plotChart(curr, i);
 	}
+	notifySpeaker(curr, i) {
+		var threshhold = 0.01;
+		// average of last 10 emotions
+		var e = {
+			anger: 0,
+			contempt: 0,
+			disgust: 0,
+			fear: 0,
+			sadness: 0,
+			surprise: 0
+		};
+		for (var j = 10; j < curr.dates.length; j++) {
+			for (var k = j; k > (j - 10); k--) {
+				e.anger += curr.emotions[k].emotion.anger;
+				e.contempt += curr.emotions[k].emotion.contempt;
+				e.disgust += curr.emotions[k].emotion.disgust;
+				e.fear += curr.emotions[k].emotion.fear;
+				e.sadness += curr.emotions[k].emotion.sadness;
+				e.surprise += curr.emotions[k].emotion.surprise;
+			}
+			e.anger /= 10;
+			e.contempt /= 10;
+			e.disgust /= 10;
+			e.fear /= 10;
+			e.sadness /= 10;
+			e.surprise /= 10;
+			console.log(e.anger, e.contempt, e.disgust, e.fear, e.sadness, e.surprise);
+			if (e.anger > threshhold || e.contempt > threshhold || e.disgust > threshhold || e.fear > threshhold || e.sadness > threshhold || e.surprise > threshhold) {
+				console.log("User " + i + " is showing negative emotion.");
+			}
+		}
+	}
+
 	plotChart(curr, i) {
 		console.log(this.charts);
 		console.log(curr);

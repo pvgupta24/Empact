@@ -46,6 +46,11 @@
             <input type="button" class="btn btn-primary w-75" value="Plot All Emotions" (click)="getAllEmotions();getAllEmotions();">
 
           </form>
+          <form enctype="multipart/form-data" ngNoForm action="/api/upload" method="POST">
+            <input type="hidden" name="MAX_FILE_SIZE" value="100000">
+            Choose a file to upload: <input name="uploadedfile" type="file" id="video"><br>
+            <button type="submit" value="Upload File">Upload File</button>
+          </form>
           <div id="my_camera"></div>
           <div> Emotions:
             <pre id="results"></pre>
@@ -71,9 +76,3 @@
     <br>
   </div>
 </div>
-
-<!-- <div>
-  <div *ngIf="chart">
-    <canvas id="canvas">{{ chart }}</canvas>
-  </div>
-</div> -->

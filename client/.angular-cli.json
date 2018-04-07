@@ -30,17 +30,16 @@
         "../node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/materialize-css/dist/js/materialize.js",
-        "../node_modules/materialize-css/dist/css/materialize.css"
+        "../node_modules/materialize-css/dist/css/materialize.css",
+        "assets/js/multiline.js",
+        "assets/js/azurestoragejs-0.2.8-preview.15bundleazure-storage.blob.min.js"
       ],
       "scripts": [       
         "assets/js/jquery-3.2.1.min.js",
         "assets/js/bootstrap.min.js",
         "assets/js/mdb.min.js",
         "assets/js/popper.min.js",
-        "assets/js/wow.min.js",
-        "assets/js/emotion.js",
-        "assets/js/multiline.js",
-        "assets/js/azurestoragejs-0.2.8-preview.15bundleazure-storage.blob.min.js"
+        "assets/js/emotion.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
