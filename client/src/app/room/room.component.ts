@@ -132,7 +132,7 @@ export class RoomComponent implements OnInit {
 		// takeSnap(this.user.name);
 	}
 	sendSnaps() {
-		// takeSnap(this.user.name);
+		takeSnap(this.user.name);
 	}
 	stopSession() {
 		this.api.dispose();
@@ -148,6 +148,8 @@ export class RoomComponent implements OnInit {
 					curr['username'] = res[i].username;
 					curr['emotions'] = res[i].emotions;
 					curr['dates'] = res[i].emotions;
+					// notify speaker about negative emotions
+					this.notifySpeaker(curr, i);
 					//array of emotions in diff time
 					this.plotChart(curr, i);
 				}
@@ -155,6 +157,38 @@ export class RoomComponent implements OnInit {
 				console.error(err);
 			});
 
+	}
+	notifySpeaker(curr, i) {
+		var threshhold = 0.01;
+		// average of last 10 emotions
+		var e = {
+			anger: 0,
+			contempt: 0,
+			disgust: 0,
+			fear: 0,
+			sadness: 0,
+			surprise: 0
+		};
+		for (var j = 10; j < curr.dates.length; j++) {
+			for(var k = j; k > (j-10); k--) {
+				e.anger += curr.emotions[k].emotion.anger;
+				e.contempt += curr.emotions[k].emotion.contempt;
+				e.disgust += curr.emotions[k].emotion.disgust;
+				e.fear += curr.emotions[k].emotion.fear;
+				e.sadness += curr.emotions[k].emotion.sadness;
+				e.surprise += curr.emotions[k].emotion.surprise;
+			}
+			e.anger /= 10;
+			e.contempt /= 10;
+			e.disgust /= 10;
+			e.fear /= 10;
+			e.sadness /= 10;
+			e.surprise /= 10;
+			console.log(e.anger, e.contempt, e.disgust, e.fear, e.sadness, e.surprise);
+			if(e.anger > threshhold || e.contempt > threshhold || e.disgust > threshhold || e.fear > threshhold || e.sadness > threshhold || e.surprise > threshhold) {
+				console.log("User " + i + " is showing negative emotion.");
+			}
+		}	
 	}
 	plotChart(curr, i) {
 		console.log(this.charts);
