@@ -19,7 +19,8 @@
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "request": "^2.85.0",
-    "serve-favicon": "~2.2.0"
+    "serve-favicon": "~2.2.0",
+    "video-indexer": "^1.0.0"
   },
   "devDependencies": {
     "gulp": "^3.9.0",

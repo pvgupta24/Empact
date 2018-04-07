@@ -52,3 +52,4 @@ process.on('SIGTERM', function() {
 // Bringing In Schemas & Models
 require('./users');
 require('./emotions');
+require('./rooms');
