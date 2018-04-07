@@ -25,7 +25,7 @@ function takeSnap(user) {
 function getEmotions() {
 
   var canvas = document.getElementById('viewport'),
-    context = canvas.getContext('2d');
+  context = canvas.getContext('2d');
   var subscriptionKey = "3bc85828a3ed453985e467b187497e05";
 
 

@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
 // URL to connect to Cosmos Database, NoSql
-var dbURI = 'mongodb://localhost/empact';
-// var dbURI = 'mongodb://empactcosmosdb:2ELvodEB5uvfhUD0KeTLTWuykADcCMCeR0H2cUjlM6yXsclLjhnalERVremVrFImEdLyRg6TGt196mv8qEJ5LQ==@empactcosmosdb.documents.azure.com:10255/?ssl=true';
+// var dbURI = 'mongodb://localhost/empact';
+var dbURI = 'mongodb://empact-db:Llp2dVhvJSEspIWLOgqAUNDoE0WadlPM3tYf6AxA9oA9NHVzW26Ui8MxMzTdd1jbXgARcCp5HaLrrQ6DrpeMJA==@empact-db.documents.azure.com:10255/?ssl=true&replicaSet=globaldb';
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGOLAB_URI;
 }

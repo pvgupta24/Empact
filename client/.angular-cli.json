@@ -39,7 +39,8 @@
         "assets/js/popper.min.js",
         "assets/js/wow.min.js",
         "assets/js/emotion.js",
-        "assets/js/multiline.js"
+        "assets/js/multiline.js",
+        "assets/js/azurestoragejs-0.2.8-preview.15bundleazure-storage.blob.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

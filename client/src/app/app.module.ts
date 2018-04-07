@@ -16,6 +16,8 @@ import { AuthGuardService } from './auth-guard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 // import { CourseComponent } from './course/course.component';
 import { RoomComponent } from './room/room.component';
+import { BlobStorageService } from './blob-storage/blob-storage.service';
+import { BlobModule } from 'angular-azure-blob-service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -41,11 +43,13 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    BlobModule.forRoot()
   ],
   providers: [
     AuthenticationService, 
     AuthGuardService,
-    EmotionService
+    EmotionService,
+    BlobStorageService
   ],
   bootstrap: [AppComponent]
 })
