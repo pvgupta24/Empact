@@ -1,5 +1,6 @@
 <!-- Full Page Intro -->
-<div class="view full-page-intro" style="background-image: url('https://images.pexels.com/photos/745365/pexels-photo-745365.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb'); background-repeat: no-repeat; background-size: cover;">
+<div class="view full-page-intro" >
+<!-- style="background-image: url('https:// images.pexels.com/photos/745365/pexels-photo-745365.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb'); background-repeat: no-repeat; background-size: cover;"> -->
 
   <div class="my-view container">
     <!--Main Navigation-->
@@ -19,6 +20,9 @@
           <a class="list-group-item list-group-item-action waves-effect" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-tv mr-3"></i>New Room
           </a>
+          <!-- <a class="list-group-item list-group-item-action waves-effect" >
+            <i class="fa fa-tv mr-3"></i>
+          </a> -->
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -71,7 +75,10 @@
 
         </div>
         <!-- Heading -->
-
+        <div *ngIf="insightUrl">
+            <iframe allowfullscreen="" [src]="getSafeUrl(playerUrl)" width="580" height="780" frameborder="0"></iframe>          
+          <iframe allowfullscreen="" [src]="getSafeUrl(insightUrl)" width="580" height="780" frameborder="0"></iframe>
+        </div>
 
         <input type="file" #file (change)="updateFiles(file.files)">
         <input type="button" class="btn btn-primary" (click)="upload()" value="Send">
@@ -79,8 +86,8 @@
 
         <!--Card group-->
         <div class="card-deck">
-          <div *ngFor="let room of rooms" class="wow fadeIn col-lg-6">
-            <a routerLink="{{'/room/'+room.code}}">
+          <div *ngFor="let room of rooms;let id = index" class="wow fadeIn col-lg-6">
+            <a>
               <!--Card-->
               <div class="card mb-4 col">
 
@@ -88,13 +95,44 @@
                 <div class="card-body">
 
                   <!--Title-->
-                  <h4 class="card-title">{{room.code}} - {{room.name}}</h4>
+                  <h4 class="card-title">{{room.roomID}} - {{room.name}}</h4>
 
                   <!--Text-->
                   <p class="card-text">Room Description</p>
+                  
 
+                  <!-- InsightsWidgetUrl: "\"https://www.videoindexer.ai/embed/insights/6fd4209a67?accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFeHRlcm5hbFVzZXJJZCI6IjY1ZjliNGJmMzFiYjU2YTkiLCJVc2VyVHlwZSI6Ik1pY3Jvc29mdCIsIkJyZWFrZG93bklkIjoiNmZkNDIwOWE2NyIsIkFsbG93RWRpdCI6IkZhbHNlIiwiaXNzIjoiaHR0cHM6Ly93d3cudmlkZW9pbmRleGVyLmFpIiwiYXVkIjoiaHR0cHM6Ly93d3cudmlkZW9pbmRleGVyLmFpIiwiZXhwIjoxNTIzMTQ5NzU3LCJuYmYiOjE1MjMxNDU4NTd9.GkQqL9iSowjOANbebeWXC2iwTc82ubSMine2r5BAhMY\""
+​
+PlayerWidgetUrl: "\"https://www.videoindexer.ai/embed/player/6fd4209a67?accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFeHRlcm5hbFVzZXJJZCI6IjY1ZjliNGJmMzFiYjU2YTkiLCJVc2VyVHlwZSI6Ik1pY3Jvc29mdCIsIkJyZWFrZG93bklkIjoiNmZkNDIwOWE2NyIsIkFsbG93RWRpdCI6IkZhbHNlIiwiaXNzIjoiaHR0cHM6Ly93d3cudmlkZW9pbmRleGVyLmFpIiwiYXVkIjoiaHR0cHM6Ly93d3cudmlkZW9pbmRleGVyLmFpIiwiZXhwIjoxNTIzMTQ5NzU2LCJuYmYiOjE1MjMxNDU4NTZ9.DIG9Pnr3GI0uPbBWe_1q-4BY6fRgarVhuHE-7VpOeJI\""
+​
+__proto__: Object { … } -->
                   <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                  <button type="button" class="btn btn-light-blue btn-md">Enter Room</button>
+                  <button type="button" routerLink="{{'/room/'+room.code}}" class="btn btn-success btn-md">Enter Room</button>
+                  <button type="button" *ngIf="room.videoID" (click)="getRoomInsights(room.videoID)" class="btn btn-info btn-md">Room Insights</button>
+                  <a class="list-group-item list-group-item-action waves-effect" data-toggle="modal" data-target="#exampleModal1">
+                    Open Modal </a>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel1">Make New Room</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <!-- <iframe allowfullscreen="" src="sanitizer.bypassSecurityTrustUrl({{urls.PlayerWidgetUrl}})" width="1280" height="720" frameborder="0"></iframe>
+                          <iframe allowfullscreen="" src="sanitizer.bypassSecurityTrustUrl({{urls.InsightsWidgetUrl}})" width="1280" height="720" frameborder="0"></iframe> -->
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
                 </div>
                 <!--Card content-->
 

@@ -6,7 +6,6 @@ var dbURI = 'mongodb://empact-db:Llp2dVhvJSEspIWLOgqAUNDoE0WadlPM3tYf6AxA9oA9NHV
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGOLAB_URI;
 }
-
 // connection function
 mongoose.connect(dbURI);
 

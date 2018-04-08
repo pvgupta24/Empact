@@ -13,6 +13,7 @@ module.exports.viewRooms = function(req, res){
 // function to createRooms to the CosmosDB database: Room Schema
 module.exports.createRoom = function(req, res) {
     //console.log('Received emotion : ' + JSON.stringify(req.body));
+    console.log("Creating Room ");
     var owner_username = req.body.owner;
     var roomID = req.body.roomID;
     //let emotion = req.body.payload.faceAttributes.emotion;
@@ -26,7 +27,8 @@ module.exports.createRoom = function(req, res) {
     room.save(function(err){
     	if(!err){
     		res.status(200);
-    		res.send("Room created");
+            // res.send("Room created");
+            //TODO: Add to current user 
     	}
     	else{
     		res.status(404);
