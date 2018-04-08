@@ -20,14 +20,13 @@ sudo sysctl -p --system
 
 
 ### Demo
-- Video Link : https://www.youtube.com/watch?v=zXlO3CSY_jE
-- Presentation Link : https://1drv.ms/p/s!AlCM_gUyvQVGiAHF2tQoze8F3Z0A
+- Initial Presentation Link : https://1drv.ms/p/s!AlCM_gUyvQVGiAHF2tQoze8F3Z0A
 - App Here : https://empact.westus2.cloudapp.azure.com:3000/
 
 ### Future Work:
-- Private Discussion rooms
-- Personalised Intelligent Bot
-- Detailed report on the emotions of each user at the video conference
+- [ ] Private Discussion rooms
+- [ ] Personalised Intelligent Bot
+- [x] Detailed report on the emotions of each user at the video conference
 
 ### Contributors
 
