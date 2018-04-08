@@ -16,11 +16,13 @@ module.exports.createRoom = function(req, res) {
     console.log("Creating Room ");
     var owner_username = req.body.owner;
     var roomID = req.body.roomID;
+    var roomName = req.body.roomName;
     //let emotion = req.body.payload.faceAttributes.emotion;
     //console.log(emotion);    
     var room = new Rooms();
     room.roomID = roomID;
     room.owner = owner_username;
+    room.roomName = roomName;
     room.users = [];
     room.users.push(room.owner);
 

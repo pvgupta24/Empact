@@ -1,6 +1,6 @@
 <!-- Full Page Intro -->
-<div class="view full-page-intro" >
-<!-- style="background-image: url('https:// images.pexels.com/photos/745365/pexels-photo-745365.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb'); background-repeat: no-repeat; background-size: cover;"> -->
+<div class="view full-page-intro">
+  <!-- style="background-image: url('https:// images.pexels.com/photos/745365/pexels-photo-745365.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb'); background-repeat: no-repeat; background-size: cover;"> -->
 
   <div class="my-view container">
     <!--Main Navigation-->
@@ -76,13 +76,11 @@
         </div>
         <!-- Heading -->
         <div *ngIf="insightUrl">
-            <iframe allowfullscreen="" [src]="getSafeUrl(playerUrl)" width="580" height="780" frameborder="0"></iframe>          
+          <iframe allowfullscreen="" [src]="getSafeUrl(playerUrl)" width="580" height="780" frameborder="0"></iframe>
           <iframe allowfullscreen="" [src]="getSafeUrl(insightUrl)" width="580" height="780" frameborder="0"></iframe>
         </div>
 
-        <input type="file" #file (change)="updateFiles(file.files)">
-        <input type="button" class="btn btn-primary" (click)="upload()" value="Send">
-        <p *ngIf="percent > 0">Progress: {{ percent }}%</p>
+        <!--     -->
 
         <!--Card group-->
         <div class="card-deck">
@@ -95,11 +93,15 @@
                 <div class="card-body">
 
                   <!--Title-->
-                  <h4 class="card-title">{{room.roomID}} - {{room.name}}</h4>
+                  <h4 class="card-title">{{room.roomID}} - {{room.roomName}}</h4>
 
                   <!--Text-->
                   <p class="card-text">Room Description</p>
-                  
+                  <span *ngIf="!room.videoID">
+                    <input type="file" #file (change)="updateFiles(file.files)">
+                    <input type="button" class="btn btn-primary btn-sm" (click)="upload(room.roomID)" value="Send">
+                  </span>
+                  <!-- <p *ngIf="percent > 0">Progress: {{ percent }}%</p> -->
 
                   <!-- InsightsWidgetUrl: "\"https://www.videoindexer.ai/embed/insights/6fd4209a67?accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFeHRlcm5hbFVzZXJJZCI6IjY1ZjliNGJmMzFiYjU2YTkiLCJVc2VyVHlwZSI6Ik1pY3Jvc29mdCIsIkJyZWFrZG93bklkIjoiNmZkNDIwOWE2NyIsIkFsbG93RWRpdCI6IkZhbHNlIiwiaXNzIjoiaHR0cHM6Ly93d3cudmlkZW9pbmRleGVyLmFpIiwiYXVkIjoiaHR0cHM6Ly93d3cudmlkZW9pbmRleGVyLmFpIiwiZXhwIjoxNTIzMTQ5NzU3LCJuYmYiOjE1MjMxNDU4NTd9.GkQqL9iSowjOANbebeWXC2iwTc82ubSMine2r5BAhMY\""
 ​
@@ -107,10 +109,10 @@ PlayerWidgetUrl: "\"https://www.videoindexer.ai/embed/player/6fd4209a67?accessTo
 ​
 __proto__: Object { … } -->
                   <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                  <button type="button" routerLink="{{'/room/'+room.code}}" class="btn btn-success btn-md">Enter Room</button>
-                  <button type="button" *ngIf="room.videoID" (click)="getRoomInsights(room.videoID)" class="btn btn-info btn-md">Room Insights</button>
-                  <a class="list-group-item list-group-item-action waves-effect" data-toggle="modal" data-target="#exampleModal1">
-                    Open Modal </a>
+                  <button type="button" routerLink="{{'/room/'+room.code}}" class="btn btn-success btn-sm">Enter</button>
+                  <button type="button" *ngIf="room.videoID" (click)="getRoomInsights(room.videoID)" class="btn btn-info btn-sm">Insights</button>
+                  <!-- <a class="list-group-item list-group-item-action waves-effect" data-toggle="modal" data-target="#exampleModal1">
+                    Open Modal </a> -->
                   <!-- Modal -->
                   <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">

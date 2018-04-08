@@ -9,7 +9,7 @@ import * as RecordRTC from 'recordrtc';
 
 declare function JitsiMeetExternalAPI(a, b): void;
 declare function takeSnap(a): any;
-declare function getEmotions(a): any
+declare function getEmotions(): any
 
 @Component({
 	selector: 'app-room',
@@ -26,6 +26,7 @@ export class RoomComponent implements OnInit {
 	items = [];
 	// items = [0, 1, 2, 3];
 	charts = [];
+	agg_em_chart;
 	recordStatus: boolean = false;
 	private stream: MediaStream;
 	private recordRTC: any;
@@ -44,6 +45,7 @@ export class RoomComponent implements OnInit {
 		this.emotion.setWebCam();
 		this.auth.profile().subscribe(user => {
 			this.user = user;
+			console.log(user);
 		}, (err) => {
 			console.error(err);
 		});
@@ -131,7 +133,8 @@ export class RoomComponent implements OnInit {
 
 		//Start capturing emotions and displaying in real time 
 		setInterval(() => {
-			getEmotions(this.user.name);
+			console.log(this.user.name);
+			this.sendSnaps();
 			setTimeout(() => { this.getAllEmotions(); }, 1000);
 		}, 5000);
 
@@ -145,6 +148,63 @@ export class RoomComponent implements OnInit {
 		this.api.dispose();
 		this.sessionStatus = false;
 	}
+	getAggregateEmotions(res) {
+		console.log(res);
+		var emotion_score = [];
+		var user_names = [];
+		var dataset = {
+			'label':"Emotion Scores",
+			data:[]
+
+		};
+		for (var i = 0; i < (<any>res).length; i++) {
+			emotion_score[i] = 0;
+			var curr:any = {};
+			curr['username'] = res[i].username;
+			curr['emotions'] = res[i].emotions;
+			console.log(curr);
+			for (var j = 0; j < res[i].emotions.length; j++) {
+				emotion_score[i] += curr.emotions[j].emotion.happiness - curr.emotions[j].emotion.surprise - curr.emotions[j].emotion.anger - curr.emotions[j].emotion.sadness - curr.emotions[j].emotion.disgust - curr.emotions[j].emotion.fear;
+			}	
+			user_names.push(curr.username);	
+			dataset.data.push(emotion_score[i]);
+		}
+		
+		console.log("Entered aggregate emotions");
+		console.log(emotion_score);
+		console.log(dataset);
+		this.agg_em_chart = new Chart(('emotion_scores'), {
+			type: 'bar',
+			data: {
+				labels: user_names,
+				datasets: [dataset],
+			},
+			options: {
+				title: {
+					display: true,
+					text: "Emotion scores"
+				},
+				legend: {
+					display: true
+				},
+				scales: {
+					xAxes: [{
+						display: true
+					}],
+					yAxes: [{
+						display: true
+					}],
+				},
+				animation: {
+					duration: 800, // general animation time
+				},
+				// hover: {
+				// 	animationDuration: 100, // duration of animations when hovering an item
+				// },
+				// responsiveAnimationDuration: 100, // animation duration after a resize
+			}
+		});
+	}
 	getAllEmotions() {
 		this.emotion.getAllEmotions()
 			.subscribe((res) => {
@@ -154,11 +214,12 @@ export class RoomComponent implements OnInit {
 					let curr = {};
 					curr['username'] = res[i].username;
 					curr['emotions'] = res[i].emotions;
-					// curr['dates'] = res[i].emotions;
+					curr['dates'] = res[i].emotions;
 					// this.plotChart(curr, i);
 					this.plot(curr, i);
 					// notify speaker about negative emotions
 					this.notifySpeaker(curr, i);
+					this.getAggregateEmotions(res);	
 				}
 			}, (err) => {
 				console.error(err);
@@ -181,7 +242,7 @@ export class RoomComponent implements OnInit {
 			sadness: 0,
 			surprise: 0
 		};
-		for (var j = 10; j < curr.dates.length; j++) {
+		for (var j = 10; j < curr.emotions.length; j++) {
 			for (var k = j; k > (j - 10); k--) {
 				e.anger += curr.emotions[k].emotion.anger;
 				e.contempt += curr.emotions[k].emotion.contempt;

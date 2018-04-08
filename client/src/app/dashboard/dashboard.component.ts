@@ -19,6 +19,7 @@ export class DashboardComponent {
 		name: "",
 		owner: ""
 	}
+
 	playerUrl = ""
 	insightUrl = ""
 	/** The upload config */
@@ -32,7 +33,7 @@ export class DashboardComponent {
 		storageAccount: 'empactstorage',
 		containerName: 'empact-container'
 	};
-	upload() {
+	upload(roomID) {
 		//TODO: Take roomID as parameter
 		if (this.currentFile !== null) {
 			const baseUrl = this.blob.generateBlobUrl(this.Config, this.currentFile.name);
@@ -47,7 +48,7 @@ export class DashboardComponent {
 					this.http.post('/api/upload',
 						JSON.stringify({
 							"videoUrl": baseUrl,
-							"roomID": this.rooms[0].roomID
+							"roomID": roomID
 						}), this.httpOptions)
 						.subscribe((res) => {
 							console.log(res);
@@ -68,6 +69,7 @@ export class DashboardComponent {
 			this.blob.upload(this.config);
 		}
 	}
+	
 	getRoomInsights(videoID) {
 		console.log(videoID);
 		this.http.post('/api/getURL',
@@ -132,7 +134,7 @@ export class DashboardComponent {
 		this.rooms.push(this.newroom);
 		this.http.post('/api/newRoom',
 			JSON.stringify({
-				"owner": this.user.email, "roomID": this.newroom.code
+				"owner": this.user.email, "roomID": this.newroom.code, "roomName": this.newroom.name
 			}), this.httpOptions)
 			.subscribe((res) => { console.log(res) },
 				(err) => { console.error(err); });
